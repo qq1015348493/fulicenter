@@ -1,17 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="cn.ucai.fulicenter.activity.MainActivity">
-
-    <TextView
-        android:layout_width="wrap_content"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:orientation="horizontal">
+        <RadioGroup
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_weight="4">
+            <RadioButton
+                android:gravity="center"
+                android:id="@+id/new_good"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="新品"
+                android:drawablePadding="5dp"
+                android:layout_weight="1"
+                android:button="@null"
+                android:drawableTop="@drawable/selector_menu_item_new_good"
+                android:checked="true"/>
+            <RadioButton
+                android:gravity="center"
+                android:id="@+id/boutique"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="精品"
+                android:drawablePadding="5dp"
+                android:layout_weight="1"
+                android:button="@null"
+                android:drawableTop="@drawable/selector_menu_item_boutique"
+                />
+            <RadioButton
+                android:gravity="center"
+                android:id="@+id/category"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="分类"
+                android:drawablePadding="5dp"
+                android:layout_weight="1"
+                android:button="@null"
+                android:drawableTop="@drawable/selector_menu_item_category"/>
+            <RadioButton
+                android:gravity="center"
+                android:id="@+id/personal"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="我"
+                android:drawablePadding="5dp"
+                android:layout_weight="1"
+                android:button="@null"
+                android:drawableTop="@drawable/selector_menu_item_personal_center"
+                />
+        </RadioGroup>
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:weightSum="1">
+            <RadioButton
+                android:onClick="Cart"
+                android:gravity="center"
+                android:id="@+id/cart"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="购物车"
+                android:drawablePadding="5dp"
+                android:button="@null"
+                android:drawableTop="@drawable/selector_menu_item_cart"
+                 />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/cart_hint"
+                android:text="100"
+                android:layout_alignRight="@+id/cart"
+                />
+        </RelativeLayout>
+    </LinearLayout>
+
+
+
 </RelativeLayout>
