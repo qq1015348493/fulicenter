@@ -1,7 +1,9 @@
-package cn.ucai.fulicenter;
+package cn.ucai.fulicenter.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import cn.ucai.fulicenter.R;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -10,7 +12,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
-
     private void initView() {
     }
 }
