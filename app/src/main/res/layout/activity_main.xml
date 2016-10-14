@@ -8,17 +8,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-        <RadioGroup
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_weight="4">
             <RadioButton
                 android:gravity="center"
                 android:id="@+id/new_good"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="新品"
+                android:textColor="@color/main_botton_text_color"
                 android:drawablePadding="5dp"
                 android:layout_weight="1"
                 android:button="@null"
@@ -30,6 +26,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="精品"
+                android:textColor="@color/main_botton_text_color"
                 android:drawablePadding="5dp"
                 android:layout_weight="1"
                 android:button="@null"
@@ -41,6 +38,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="分类"
+                android:textColor="@color/main_botton_text_color"
                 android:drawablePadding="5dp"
                 android:layout_weight="1"
                 android:button="@null"
@@ -51,24 +49,24 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="我"
+                android:textColor="@color/main_botton_text_color"
                 android:drawablePadding="5dp"
                 android:layout_weight="1"
                 android:button="@null"
                 android:drawableTop="@drawable/selector_menu_item_personal_center"
                 />
-        </RadioGroup>
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:weightSum="1">
             <RadioButton
-                android:onClick="Cart"
                 android:gravity="center"
                 android:id="@+id/cart"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="购物车"
+                android:textColor="@color/main_botton_text_color"
                 android:drawablePadding="5dp"
                 android:button="@null"
                 android:drawableTop="@drawable/selector_menu_item_cart"
@@ -82,7 +80,4 @@
                 />
         </RelativeLayout>
     </LinearLayout>
-
-
-
 </RelativeLayout>
