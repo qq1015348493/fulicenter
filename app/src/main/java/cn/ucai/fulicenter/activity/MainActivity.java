@@ -1,10 +1,12 @@
 package cn.ucai.fulicenter.activity;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.RadioButton;
 
 import butterknife.Bind;
@@ -12,8 +14,8 @@ import butterknife.ButterKnife;
 import cn.ucai.fulicenter.R;
 import cn.ucai.fulicenter.utils.L;
 
-public class MainActivity extends AppCompatActivity  implements View.OnClickListener{
-
+public class MainActivity extends AppCompatActivity  {
+    New_good newgoodsFragment;
     @Bind(R.id.new_good)
     RadioButton newGood;
     @Bind(R.id.boutique)
@@ -25,26 +27,47 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
     @Bind(R.id.cart)
     RadioButton cart;
 
+    int index;
+    RadioButton[] rbs;
+    Fragment[] mfragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         L.i("MainActivity onCreate");
-        setListenr();
+//        setListenr();
+        initView();
+        initFragment();
     }
 
-    private void setListenr() {
+    private void initFragment() {
+      /*  mfragment = new Fragment[5];
+        newgoodsFragment = new New_good();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .add(R.id.fragment,newgoodsFragment)
+                .show(newgoodsFragment)
+                .commit();*/
+    }
+
+    private void initView() {
+        rbs = new RadioButton[5];
+        rbs[0]=newGood;
+        rbs[1]=boutique;
+        rbs[2]=category;
+        rbs[3]=cart;
+        rbs[4]=personal;
+    }
+
+    /*private void setListenr() {
         newGood.setOnClickListener(this);
         boutique.setOnClickListener(this);
         category.setOnClickListener(this);
         cart.setOnClickListener(this);
         personal.setOnClickListener(this);
-    }
-
-
-
-    private void mutual(RadioButton v) {
+    }*/
+    /*private void mutual(RadioButton v) {
         if (v != newGood) {
             newGood.setChecked(false);
         }
@@ -61,55 +84,52 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
             personal.setChecked(false);
         }
 
-    }
+    }*/
 
-    @Override
-    public void onClick(View v) {
+    public void onCheckedChange(View v) {
         switch (v.getId()) {
             case R.id.new_good:
-                mutual((RadioButton) v);
+                L.i("new_good");
+                index = 0;
+//                mutual((RadioButton) v);
                 New_good new_good = new New_good();
-                FragmentManager manager = getSupportFragmentManager();
+               FragmentManager manager = getSupportFragmentManager();
                 FragmentTransaction transaction = manager.beginTransaction();
-                transaction.replace(R.id.linearlayout, new_good);
+               transaction.add(R.id.fragment, new_good);
                 transaction.commit();
                 break;
             case R.id.boutique:
-                mutual((RadioButton) v);
-                Boutique boutique = new Boutique();
-                FragmentManager manager2 = getSupportFragmentManager();
-                FragmentTransaction transaction2 = manager2.beginTransaction();
-                transaction2.replace(R.id.linearlayout, boutique);
-                transaction2.addToBackStack(null);
-                transaction2.commit();
-                break;
-            case R.id.cart:
-                mutual((RadioButton) v);
-                Cart cart = new Cart();
-                FragmentManager manager3 = getSupportFragmentManager();
-                FragmentTransaction transaction3 = manager3.beginTransaction();
-                transaction3.replace(R.id.linearlayout, cart);
-                transaction3.addToBackStack(null);
-                transaction3.commit();
+                L.i("boutique");
+                index = 1;
+//                mutual((RadioButton) v);
                 break;
             case R.id.category:
-                mutual((RadioButton) v);
-                Category category = new Category();
-                FragmentManager manager4 = getSupportFragmentManager();
-                FragmentTransaction transaction4 = manager4.beginTransaction();
-                transaction4.replace(R.id.linearlayout, category);
-                transaction4.addToBackStack(null);
-                transaction4.commit();
+                index = 2;
+//                mutual((RadioButton) v);
+                break;
+            case R.id.cart:
+                index =3;
+//                mutual((RadioButton) v);
                 break;
             case R.id.personal:
-                mutual((RadioButton) v);
-                Personal personal = new Personal();
-                FragmentManager manager5 = getSupportFragmentManager();
-                FragmentTransaction transaction5 = manager5.beginTransaction();
-                transaction5.replace(R.id.linearlayout, personal);
-                transaction5.addToBackStack(null);
-                transaction5.commit();
+                index = 4;
+//                mutual((RadioButton) v);
                 break;
         }
+        setB();
     }
+
+    private void setB() {
+        L.i(index+"");
+        for(int i=0;i<rbs.length;i++){
+            if(index == i){
+                rbs[i].setChecked(true);
+            }else {
+                rbs[i].setChecked(false);
+            }
+        }
+    }
+
+
+
 }

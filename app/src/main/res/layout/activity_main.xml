@@ -1,97 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/activity_main"
+    android:id="@+id/radrelative"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_above="@+id/LL"
-        android:id="@+id/linearlayout"
+
+    <fragment
+        android:layout_above="@+id/radGroup"
+        android:id="@+id/fragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    </LinearLayout>
-
+        android:layout_height="match_parent"
+        android:name="cn.ucai.fulicenter.activity.New_good"/>
     <LinearLayout
-        android:id="@+id/LL"
+        android:id="@+id/radGroup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
-            <RadioButton
-                style="@style/menu_item_style"
-                android:gravity="center"
-                android:id="@+id/new_good"
-                android:layout_height="wrap_content"
-                android:text="新品"
-                android:textColor="@color/main_botton_text_color"
-                android:drawablePadding="5dp"
-                android:button="@null"
-                android:drawableTop="@drawable/selector_menu_item_new_good"
-                android:checked="true"/>
-            <RadioButton
-                android:gravity="center"
-                android:id="@+id/boutique"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="精品"
-                android:textColor="@color/main_botton_text_color"
-                android:drawablePadding="5dp"
-                android:layout_weight="1"
-                android:button="@null"
-                android:drawableTop="@drawable/selector_menu_item_boutique"
-                />
+        android:orientation="horizontal">
 
         <RadioButton
-            android:gravity="center"
-            android:id="@+id/category"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="分类"
-            android:textColor="@color/main_botton_text_color"
-            android:drawablePadding="5dp"
-            android:layout_weight="1"
+            android:id="@+id/new_good"
+            style="@style/menu_item_style"
             android:button="@null"
-            android:drawableTop="@drawable/selector_menu_item_category"/>
+            android:checked="true"
+            android:drawableTop="@drawable/selector_menu_item_new_good"
+            android:gravity="center_horizontal"
+            android:text="新品"
+            android:textColor="@color/main_botton_text_color" />
 
         <RadioButton
-                android:gravity="center"
-                android:id="@+id/personal"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="我"
-                android:textColor="@color/main_botton_text_color"
-                android:drawablePadding="5dp"
-                android:layout_weight="1"
-                android:button="@null"
-                android:drawableTop="@drawable/selector_menu_item_personal_center"
-                />
+            android:id="@+id/boutique"
+            style="@style/menu_item_style"
+            android:button="@null"
+            android:drawableTop="@drawable/selector_menu_item_boutique"
+            android:gravity="center_horizontal"
+            android:text="精选"
+            android:textColor="@color/main_botton_text_color" />
+
+        <RadioButton
+            android:id="@+id/category"
+            style="@style/menu_item_style"
+            android:button="@null"
+            android:checked="false"
+            android:drawableTop="@drawable/selector_menu_item_category"
+            android:gravity="center_horizontal"
+            android:text="分类"
+            android:textColor="@color/main_botton_text_color" />
+
+
         <RelativeLayout
+            android:id="@+id/radRelative"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:weightSum="1">
+            android:gravity="center_horizontal">
+
             <RadioButton
-                android:gravity="center"
                 android:id="@+id/cart"
-                android:layout_width="match_parent"
+                style="@style/menu_item_style_cart"
                 android:layout_height="wrap_content"
-                android:text="购物车"
-                android:textColor="@color/main_botton_text_color"
-                android:drawablePadding="5dp"
                 android:button="@null"
                 android:drawableTop="@drawable/selector_menu_item_cart"
-                 />
+                android:gravity="center_horizontal"
+                android:text="购物车"
+                android:textColor="@color/main_botton_text_color" />
+
             <TextView
+                android:id="@+id/tvCartHint"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignRight="@id/cart"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="4dp"
                 android:background="@drawable/cart_hint"
-                android:text="100"
-                android:layout_alignRight="@+id/cart"
-                />
+                android:text="10"
+                android:textColor="@color/white" />
         </RelativeLayout>
+
+        <RadioButton
+            android:id="@+id/personal"
+            style="@style/menu_item_style"
+            android:button="@null"
+            android:drawableTop="@drawable/selector_menu_item_personal_center"
+            android:gravity="center_horizontal"
+            android:text="我"
+            android:textColor="@color/main_botton_text_color" />
+
     </LinearLayout>
+
+
+
+
 
 </RelativeLayout>

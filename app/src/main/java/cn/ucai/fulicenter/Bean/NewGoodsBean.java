@@ -44,7 +44,7 @@ public class NewGoodsBean {
     private String colorName;
     private String colorCode;
     private String colorUrl;
-    private long addTime;
+    private String addTime;
     private boolean promote;
 
     public int getId() {
@@ -183,11 +183,11 @@ public class NewGoodsBean {
         this.colorUrl = colorUrl;
     }
 
-    public long getAddTime() {
+    public String getAddTime() {
         return addTime;
     }
 
-    public void setAddTime(long addTime) {
+    public void setAddTime(String addTime) {
         this.addTime = addTime;
     }
 

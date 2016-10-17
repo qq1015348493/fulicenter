@@ -84,7 +84,7 @@ public class OkHttpUtils<T> {
                 }
             }
         }
-//        initHandler();
+        initHandler();
     }
 
     /**
@@ -142,7 +142,7 @@ public class OkHttpUtils<T> {
     }
 
 
-    /*private void initHandler() {
+    private void initHandler() {
         mHandler = new Handler(FuLiCenterApplication.applicationContext.getMainLooper()) {
             @Override
             public void handleMessage(Message msg) {
@@ -157,7 +157,7 @@ public class OkHttpUtils<T> {
                 }
             }
         };
-    }*/
+    }
 
     /**
      * 用post请求，添加一个文件
