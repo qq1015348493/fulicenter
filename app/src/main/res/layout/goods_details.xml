@@ -20,16 +20,8 @@
             android:id="@+id/China_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="双层分格盒饭"
+            android:text="双层分格盒饭 绿色"
             android:layout_marginTop="10dp"/>
-        <TextView
-            android:id="@+id/Goods_color"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="10dp"
-            android:text="绿色"
-            />
         <TextView
             android:id="@+id/Goods_price"
             android:layout_width="wrap_content"
@@ -40,19 +32,15 @@
             android:textColor="#ff00f2"
             />
     </LinearLayout>
-    <android.support.v4.view.ViewPager
+    <cn.ucai.fulicenter.views.SlideAutoLoopView
+        android:id="@+id/slideAutoLoopView"
         android:layout_width="wrap_content"
-        android:layout_height="200dp"
-        android:layout_marginRight="50dp">
-        <ImageView
-            android:id="@+id/Goods_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="100dp"
-            android:layout_marginTop="20dp"
-            android:src="@drawable/nopic"/>
-    </android.support.v4.view.ViewPager>
+        android:layout_height="250dp">
+
+
+    </cn.ucai.fulicenter.views.SlideAutoLoopView>
     <cn.ucai.fulicenter.views.FlowIndicator
+        android:id="@+id/flowindicator"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:count="4"
@@ -64,7 +52,9 @@
         app:paddingStart="10dp"
         app:paddingEnd="10dp"
         android:layout_weight="0.04" />
-    <TextView
+    <EditText
+        android:editable="false"
+        android:background="@null"
         android:id="@+id/Goods_explain"
         android:layout_marginTop="10dp"
         android:layout_width="wrap_content"

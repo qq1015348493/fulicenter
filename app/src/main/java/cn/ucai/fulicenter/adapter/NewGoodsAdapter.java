@@ -34,23 +34,21 @@ public class NewGoodsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private ArrayList<NewGoodsBean> newGoodsBeenList;
 
     //这是构造器用来降低耦合度
-    public NewGoodsAdapter(Context context,ArrayList<NewGoodsBean> goodsBeenList) {
+    public NewGoodsAdapter(Context context, ArrayList<NewGoodsBean> goodsBeenList) {
         this.newGoodsBeenList = goodsBeenList;
         this.context = context;
     }
 
     //定义itemType的常量
-    final int NEW_GOODS_TYPE=0;
+    final int NEW_GOODS_TYPE = 0;
     final int FOOTER_HINT_TYPE = 1;
-    final int NULL_TYPE=2;
+    final int NULL_TYPE = 2;
     //用来判断是否还有更多商品
     boolean isMore;
 
 
-
     //取得ViewGroup用来给加在商品图片是设置parent；
     ViewGroup parent;
-
 
 
     public boolean isMore() {
@@ -60,6 +58,7 @@ public class NewGoodsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public void setMore(boolean more) {
         isMore = more;
     }
+
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         RecyclerView.ViewHolder holder = null;
@@ -81,13 +80,13 @@ public class NewGoodsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         //这里进行判断，如果是最后一个就代表是底部提醒信息
-        if(position==newGoodsBeenList.size()){
-          //  mGridaLayoutManager.setSpanCount(2);
+        if (position == newGoodsBeenList.size()) {
+            //  mGridaLayoutManager.setSpanCount(2);
             FootViewHolder footerViewHolder = (FootViewHolder) holder;
             //通过isMore变量来判断是否有更多数据加载
-            if(isMore){
+            if (isMore) {
                 footerViewHolder.foot.setText("上拉加载更多");
-            }else {
+            } else {
                 footerViewHolder.foot.setText("没有跟多数据可以加载");
             }
             return;
@@ -100,8 +99,8 @@ public class NewGoodsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         newGoodsViewHolder.mLayoutGoods.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int goodsId = (int)newGoodsViewHolder.mLayoutGoods.getTag();
-                MFGT.gotoGoodsDetails((Activity) context,goodsId);
+                int goodsId = (int) newGoodsViewHolder.mLayoutGoods.getTag();
+                MFGT.gotoGoodsDetails((Activity) context, goodsId);
             }
         });
         //下载图片
@@ -113,42 +112,40 @@ public class NewGoodsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 .height(200)
                 .listener(parent)
                 .showImage(context);*/
-        ImageLoader.downloadImg(context,newGoodsViewHolder.netivPhoto,newGoodsBean.getGoodsThumb(),true);
+        ImageLoader.downloadImg(context, newGoodsViewHolder.netivPhoto, newGoodsBean.getGoodsThumb(), true);
     }
 
     @Override
     public int getItemCount() {
         //如果这个list是null就返回0
-        return newGoodsBeenList==null?0:newGoodsBeenList.size()+1;
+        return newGoodsBeenList == null ? 0 : newGoodsBeenList.size() + 1;
 
     }
 
     //定义刷新加载时list数据改变的方法
-    public  void initOrRefreshList(ArrayList<NewGoodsBean> list){
+    public void initOrRefreshList(ArrayList<NewGoodsBean> list) {
         newGoodsBeenList.clear();
         this.newGoodsBeenList.addAll(list);
         notifyDataSetChanged();
     }
 
-    public void addList(ArrayList<NewGoodsBean> list){
+    public void addList(ArrayList<NewGoodsBean> list) {
         this.newGoodsBeenList.addAll(list);
         notifyDataSetChanged();
     }
 
     @Override
     public int getItemViewType(int position) {
-        if(position==newGoodsBeenList.size()){
+        if (position == newGoodsBeenList.size()) {
             //如果是最后一个就返回FOOTER_HINT
             return FOOTER_HINT_TYPE;
         }
         //如果不是最后就代表显示商品信息
         return NEW_GOODS_TYPE;
     }
-}
 
 
-
-     class FootViewHolder extends ViewHolder {
+    class FootViewHolder extends ViewHolder {
         @Bind(R.id.footer)
         TextView foot;
 
@@ -158,25 +155,27 @@ public class NewGoodsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         }
     }
 
-     class NewGoodsViewHolder extends ViewHolder {
+    class NewGoodsViewHolder extends ViewHolder {
         @Bind(R.id.goodiv)
         ImageView netivPhoto;
         @Bind(R.id.goodname)
         TextView goodTvName;
         @Bind(R.id.goodprice)
         TextView tvPrice;
-         @Bind(R.id.layout_goods)
-         LinearLayout mLayoutGoods;
+        @Bind(R.id.layout_goods)
+        LinearLayout mLayoutGoods;
 
         NewGoodsViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
         }
-         /*@OnClick(R.id.layout_goods)
-         public void NewGoodsClick(){
-             int goodsId = (int) mLayoutGoods.getTag();
-             context.startActivity(new Intent(context, Goods_Details.class)
-             .putExtra(I.GoodsDetails.KEY_GOODS_ID,goodsId));
-         }*/
+
+       /* @OnClick(R.id.layout_goods)
+        public void NewGoodsClick() {
+            int goodsId = (int) mLayoutGoods.getTag();
+            context.startActivity(new Intent(context, Goods_Details.class)
+                    .putExtra(I.GoodsDetails.KEY_GOODS_ID, goodsId));
+        }*/
     }
 
+}

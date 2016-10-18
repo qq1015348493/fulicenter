@@ -55,7 +55,7 @@ public class GoodsDetailsBean {
      * albums : [{"pid":7677,"imgId":28296,"imgUrl":"201509/goods_img/7677_P_1442391216432.png","thumbUrl":"no_picture.gif"},{"pid":7677,"imgId":28297,"imgUrl":"201509/goods_img/7677_P_1442391216215.png","thumbUrl":"no_picture.gif"},{"pid":7677,"imgId":28298,"imgUrl":"201509/goods_img/7677_P_1442391216692.png","thumbUrl":"no_picture.gif"},{"pid":7677,"imgId":28299,"imgUrl":"201509/goods_img/7677_P_1442391216316.png","thumbUrl":"no_picture.gif"}]
      */
 
-    private List<PropertiesBean> properties;
+    private PropertiesBean[] properties;
 
     public int getId() {
         return id;
@@ -185,11 +185,11 @@ public class GoodsDetailsBean {
         this.promote = promote;
     }
 
-    public List<PropertiesBean> getProperties() {
+    public PropertiesBean[] getProperties() {
         return properties;
     }
 
-    public void setProperties(List<PropertiesBean> properties) {
+    public void setProperties(PropertiesBean[] properties) {
         this.properties = properties;
     }
 
