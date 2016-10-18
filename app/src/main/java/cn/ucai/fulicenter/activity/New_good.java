@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.GridLayoutManager.DefaultSpanSizeLookup;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -23,7 +24,9 @@ import cn.ucai.fulicenter.I;
 import cn.ucai.fulicenter.R;
 import cn.ucai.fulicenter.adapter.NewGoodsAdapter;
 import cn.ucai.fulicenter.net.NetDao;
+import cn.ucai.fulicenter.utils.CommonUtils;
 import cn.ucai.fulicenter.utils.ConvertUtils;
+import cn.ucai.fulicenter.utils.ImageLoader;
 import cn.ucai.fulicenter.utils.L;
 import cn.ucai.fulicenter.utils.OkHttpUtils;
 
@@ -84,6 +87,13 @@ public class New_good extends Fragment {
                 getResources().getColor(R.color.google_yellow)
         );
          gml = new GridLayoutManager(mcontext,I.COLUM_NUM);
+        gml.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup(){
+
+            @Override
+            public int getSpanSize(int position) {
+                return position == mAdapter.getItemCount()-1?2:1;
+            }
+        });
         RecyclerView.setLayoutManager(gml);
         RecyclerView.setHasFixedSize(true);
         RecyclerView.setAdapter(mAdapter);
@@ -92,7 +102,7 @@ public class New_good extends Fragment {
         setPullUpListener();
         setPullDownListener();
     }
-
+    //下拉
     private void setPullDownListener() {
         SwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -101,20 +111,7 @@ public class New_good extends Fragment {
                 SwipeRefreshLayout.setRefreshing(true);
                 jiazai.setVisibility(View.VISIBLE);
                 mPageId = 1;
-                NetDao.downloadNewGoods(mcontext, mPageId, new OkHttpUtils.OnCompleteListener<NewGoodsBean[]>() {
-                    @Override
-                    public void onSuccess(NewGoodsBean[] result) {
-                        if(result!=null&&result.length>0){
-                            ArrayList<NewGoodsBean> list = ConvertUtils.array2List(result);
-                            mAdapter.addList(list);
-                        }
-                    }
-
-                    @Override
-                    public void onError(String error) {
-
-                    }
-                });
+                downloadNewGoods(I.ACTION_PULL_DOWN);
             }
         });
     }
@@ -133,20 +130,7 @@ public class New_good extends Fragment {
                     //滚动结且列表已到最底部且还有更多数据可加载
                     mPageId++;
                     //下载下一页的数据
-                    NetDao.downloadNewGoods(mcontext, mPageId, new OkHttpUtils.OnCompleteListener<NewGoodsBean[]>() {
-                        @Override
-                        public void onSuccess(NewGoodsBean[] result) {
-                            if(result!=null&&result.length>0){
-                                ArrayList<NewGoodsBean> list = ConvertUtils.array2List(result);
-                                mAdapter.initOrRefreshList(list);
-                            }
-                        }
-
-                        @Override
-                        public void onError(String error) {
-
-                        }
-                    });
+                    downloadNewGoods(I.ACTION_PULL_UP);
                 }
                 //停止拖拽，则通知系统回调Adapter.onBindViewHolder()，刷新RecyclerView
                 if (newState != RecyclerView.SCROLL_STATE_DRAGGING) {
@@ -162,20 +146,41 @@ public class New_good extends Fragment {
     }
 
     private void initData() {
-       NetDao.downloadNewGoods(mcontext, mPageId, new OkHttpUtils.OnCompleteListener<NewGoodsBean[]>() {
-           @Override
-           public void onSuccess(NewGoodsBean[] result) {
-               if(result!=null&&result.length>0){
-                   ArrayList<NewGoodsBean> list = ConvertUtils.array2List(result);
-                   mAdapter.initOrRefreshList(list);
-               }
-           }
+        downloadNewGoods(I.ACTION_DOWNLOAD);
+    }
 
-           @Override
-           public void onError(String error) {
-               L.e("error"+error);
-           }
-       });
+    private void downloadNewGoods(final int action) {
+        NetDao.downloadNewGoods(mcontext, mPageId, new OkHttpUtils.OnCompleteListener<NewGoodsBean[]>() {
+            @Override
+            public void onSuccess(NewGoodsBean[] result) {
+                SwipeRefreshLayout.setRefreshing(false);
+                jiazai.setVisibility(View.GONE);
+                mAdapter.setMore(true);
+                if(result!=null&&result.length>0){
+                    ArrayList<NewGoodsBean> list = ConvertUtils.array2List(result);
+                    if(action==I.ACTION_DOWNLOAD||action==I.ACTION_PULL_DOWN){
+                        mAdapter.initOrRefreshList(list);
+                    }else {
+                        mAdapter.addList(list);
+                    }
+
+                    if(list.size()<I.PAGE_SIZE_DEFAULT){
+                        mAdapter.setMore(false);
+                    }
+                }else{
+                    mAdapter.setMore(false);
+                }
+            }
+
+            @Override
+            public void onError(String error) {
+                SwipeRefreshLayout.setRefreshing(false);
+                jiazai.setVisibility(View.GONE);
+                CommonUtils.showShortToast(error);
+                L.e("error"+error);
+
+            }
+        });
     }
 
     @Override
