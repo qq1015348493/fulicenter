@@ -19,6 +19,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import cn.ucai.fulicenter.Bean.GoodsDetailsBean;
 import cn.ucai.fulicenter.Bean.Result;
 import cn.ucai.fulicenter.I;
 import okhttp3.Cache;
@@ -54,6 +55,8 @@ public class OkHttpUtils<T> {
     RequestBody mFileBody;
     FormBody.Builder mFormBodyBuilder;
     MultipartBody.Builder mMultipartBodyBuilder;
+
+
 
     public interface OnCompleteListener<T> {
         void onSuccess(T result);

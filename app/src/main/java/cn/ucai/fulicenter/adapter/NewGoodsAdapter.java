@@ -1,7 +1,10 @@
 package cn.ucai.fulicenter.adapter;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.RecyclerView.ViewHolder;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,22 +16,25 @@ import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import cn.ucai.fulicenter.Bean.NewGoodsBean;
 import cn.ucai.fulicenter.I;
 import cn.ucai.fulicenter.R;
+import cn.ucai.fulicenter.activity.Goods_Details;
 import cn.ucai.fulicenter.activity.MainActivity;
 import cn.ucai.fulicenter.utils.ImageLoader;
 import cn.ucai.fulicenter.utils.L;
+import cn.ucai.fulicenter.utils.MFGT;
 
 /**
  * Created by Administrator on 2016/6/15.
  */
 public class NewGoodsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    MainActivity context;
+    Context context;
     private ArrayList<NewGoodsBean> newGoodsBeenList;
 
     //这是构造器用来降低耦合度
-    public NewGoodsAdapter(MainActivity context,ArrayList<NewGoodsBean> goodsBeenList) {
+    public NewGoodsAdapter(Context context,ArrayList<NewGoodsBean> goodsBeenList) {
         this.newGoodsBeenList = goodsBeenList;
         this.context = context;
     }
@@ -87,9 +93,17 @@ public class NewGoodsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             return;
         }
         NewGoodsBean newGoodsBean = newGoodsBeenList.get(position);
-        NewGoodsViewHolder newGoodsViewHolder = (NewGoodsViewHolder) holder;
+        final NewGoodsViewHolder newGoodsViewHolder = (NewGoodsViewHolder) holder;
         newGoodsViewHolder.goodTvName.setText(newGoodsBean.getGoodsName());
         newGoodsViewHolder.tvPrice.setText(newGoodsBean.getShopPrice());
+        newGoodsViewHolder.mLayoutGoods.setTag(newGoodsBean.getGoodsId());
+        newGoodsViewHolder.mLayoutGoods.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int goodsId = (int)newGoodsViewHolder.mLayoutGoods.getTag();
+                MFGT.gotoGoodsDetails((Activity) context,goodsId);
+            }
+        });
         //下载图片
         /*ImageLoader.build(I.SERVER_ROOT+I.REQUEST_DOWNLOAD_IMAGE)
                 .addParam(I.Boutique.IMAGE_URL,newGoodsBean.getGoodsThumb())
@@ -134,7 +148,7 @@ public class NewGoodsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
 
 
-     class FootViewHolder extends RecyclerView.ViewHolder {
+     class FootViewHolder extends ViewHolder {
         @Bind(R.id.footer)
         TextView foot;
 
@@ -144,17 +158,25 @@ public class NewGoodsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         }
     }
 
-     class NewGoodsViewHolder extends RecyclerView.ViewHolder {
+     class NewGoodsViewHolder extends ViewHolder {
         @Bind(R.id.goodiv)
         ImageView netivPhoto;
         @Bind(R.id.goodname)
         TextView goodTvName;
         @Bind(R.id.goodprice)
         TextView tvPrice;
+         @Bind(R.id.layout_goods)
+         LinearLayout mLayoutGoods;
 
         NewGoodsViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
         }
+         /*@OnClick(R.id.layout_goods)
+         public void NewGoodsClick(){
+             int goodsId = (int) mLayoutGoods.getTag();
+             context.startActivity(new Intent(context, Goods_Details.class)
+             .putExtra(I.GoodsDetails.KEY_GOODS_ID,goodsId));
+         }*/
     }
 
