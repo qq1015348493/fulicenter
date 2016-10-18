@@ -9,7 +9,7 @@
         android:id="@+id/fragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:name="cn.ucai.fulicenter.activity.New_good"/>
+        android:name="cn.ucai.fulicenter.fragment.New_good"/>
     <LinearLayout
         android:id="@+id/radGroup"
         android:layout_width="match_parent"

@@ -84,8 +84,9 @@ public class New_good extends Fragment {
                 getResources().getColor(R.color.google_red),
                 getResources().getColor(R.color.google_yellow)
         );
-        RecyclerView.addItemDecoration(new SpaceItemDecoration(12));
-         gml = new GridLayoutManager(mcontext,I.COLUM_NUM);
+
+
+        gml = new GridLayoutManager(mcontext,I.COLUM_NUM);
         gml.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup(){
 
             @Override
@@ -96,6 +97,7 @@ public class New_good extends Fragment {
         RecyclerView.setLayoutManager(gml);
         RecyclerView.setHasFixedSize(true);
         RecyclerView.setAdapter(mAdapter);
+        RecyclerView.addItemDecoration(new SpaceItemDecoration(12));
     }
     private void setListener() {
         setPullUpListener();
