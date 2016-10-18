@@ -38,7 +38,7 @@ public class NewGoodsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     final int FOOTER_HINT_TYPE = 1;
     final int NULL_TYPE=2;
     //用来判断是否还有更多商品
-    private boolean isMore=true;
+    boolean isMore;
 
 
 
@@ -54,7 +54,6 @@ public class NewGoodsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public void setMore(boolean more) {
         isMore = more;
     }
-
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         RecyclerView.ViewHolder holder = null;
@@ -81,7 +80,7 @@ public class NewGoodsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             FootViewHolder footerViewHolder = (FootViewHolder) holder;
             //通过isMore变量来判断是否有更多数据加载
             if(isMore){
-                footerViewHolder.foot.setText("下拉加载更多");
+                footerViewHolder.foot.setText("上拉加载更多");
             }else {
                 footerViewHolder.foot.setText("没有跟多数据可以加载");
             }
@@ -92,14 +91,15 @@ public class NewGoodsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         newGoodsViewHolder.goodTvName.setText(newGoodsBean.getGoodsName());
         newGoodsViewHolder.tvPrice.setText(newGoodsBean.getShopPrice());
         //下载图片
-        ImageLoader.build(I.SERVER_ROOT+I.REQUEST_DOWNLOAD_IMAGE)
+        /*ImageLoader.build(I.SERVER_ROOT+I.REQUEST_DOWNLOAD_IMAGE)
                 .addParam(I.Boutique.IMAGE_URL,newGoodsBean.getGoodsThumb())
                 .defaultPicture(R.drawable.nopic)
                 .imageView(newGoodsViewHolder.netivPhoto)
                 .width(150)
                 .height(200)
                 .listener(parent)
-                .showImage(context);
+                .showImage(context);*/
+        ImageLoader.downloadImg(context,newGoodsViewHolder.netivPhoto,newGoodsBean.getGoodsThumb(),true);
     }
 
     @Override

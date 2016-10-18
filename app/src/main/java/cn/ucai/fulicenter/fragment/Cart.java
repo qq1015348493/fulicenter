@@ -1,4 +1,4 @@
-package cn.ucai.fulicenter.activity;
+package cn.ucai.fulicenter.fragment;
 
 
 import android.os.Bundle;
@@ -12,10 +12,10 @@ import cn.ucai.fulicenter.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class Personal extends Fragment {
+public class Cart extends Fragment {
 
 
-    public Personal() {
+    public Cart() {
         // Required empty public constructor
     }
 
@@ -24,7 +24,7 @@ public class Personal extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_personal, container, false);
+        return inflater.inflate(R.layout.fragment_cart, container, false);
     }
 
 }

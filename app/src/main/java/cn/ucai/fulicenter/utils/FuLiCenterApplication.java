@@ -16,7 +16,7 @@ public class FuLiCenterApplication extends Application{
         instance=this;
     }
 
-    private static FuLiCenterApplication getInstance() {
+    public static FuLiCenterApplication getInstance() {
         if(instance == null){
                 if(instance == null){
                     instance = new FuLiCenterApplication();

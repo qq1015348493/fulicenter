@@ -1,4 +1,4 @@
-package cn.ucai.fulicenter.activity;
+package cn.ucai.fulicenter.fragment;
 
 
 import android.os.Bundle;

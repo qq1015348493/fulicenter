@@ -1,14 +1,11 @@
-package cn.ucai.fulicenter.activity;
+package cn.ucai.fulicenter.fragment;
 
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.GridLayoutManager.DefaultSpanSizeLookup;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,13 +19,14 @@ import butterknife.ButterKnife;
 import cn.ucai.fulicenter.Bean.NewGoodsBean;
 import cn.ucai.fulicenter.I;
 import cn.ucai.fulicenter.R;
+import cn.ucai.fulicenter.activity.MainActivity;
 import cn.ucai.fulicenter.adapter.NewGoodsAdapter;
 import cn.ucai.fulicenter.net.NetDao;
 import cn.ucai.fulicenter.utils.CommonUtils;
 import cn.ucai.fulicenter.utils.ConvertUtils;
-import cn.ucai.fulicenter.utils.ImageLoader;
 import cn.ucai.fulicenter.utils.L;
 import cn.ucai.fulicenter.utils.OkHttpUtils;
+import cn.ucai.fulicenter.views.SpaceItemDecoration;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -86,6 +84,7 @@ public class New_good extends Fragment {
                 getResources().getColor(R.color.google_red),
                 getResources().getColor(R.color.google_yellow)
         );
+        RecyclerView.addItemDecoration(new SpaceItemDecoration(12));
          gml = new GridLayoutManager(mcontext,I.COLUM_NUM);
         gml.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup(){
 

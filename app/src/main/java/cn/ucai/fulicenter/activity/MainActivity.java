@@ -12,6 +12,7 @@ import android.widget.RadioButton;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import cn.ucai.fulicenter.R;
+import cn.ucai.fulicenter.fragment.New_good;
 import cn.ucai.fulicenter.utils.L;
 
 public class MainActivity extends AppCompatActivity  {
@@ -42,13 +43,13 @@ public class MainActivity extends AppCompatActivity  {
     }
 
     private void initFragment() {
-      /*  mfragment = new Fragment[5];
+        mfragment = new Fragment[5];
         newgoodsFragment = new New_good();
         getSupportFragmentManager()
                 .beginTransaction()
                 .add(R.id.fragment,newgoodsFragment)
                 .show(newgoodsFragment)
-                .commit();*/
+                .commit();
     }
 
     private void initView() {
@@ -92,11 +93,11 @@ public class MainActivity extends AppCompatActivity  {
                 L.i("new_good");
                 index = 0;
 //                mutual((RadioButton) v);
-                New_good new_good = new New_good();
+                /*New_good new_good = new New_good();
                FragmentManager manager = getSupportFragmentManager();
                 FragmentTransaction transaction = manager.beginTransaction();
                transaction.add(R.id.fragment, new_good);
-                transaction.commit();
+                transaction.commit();*/
                 break;
             case R.id.boutique:
                 L.i("boutique");
