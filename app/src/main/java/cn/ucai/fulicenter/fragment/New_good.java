@@ -37,7 +37,6 @@ public class New_good extends Fragment {
     GridLayoutManager gml;
     int mNewState;
     int mPageId = 1;
-    int pagesize = 10;
     MainActivity mcontext;
     @Bind(R.id.jiazai)
     TextView jiazai;

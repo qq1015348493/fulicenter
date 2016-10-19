@@ -27,4 +27,13 @@ public class NetDao {
                 .targetClass(BoutiqueBean[].class)
                 .execute(listener);
     }
+    public static void downloadBoutiqueGoods(Context context,int PageId,int CatId,OkHttpUtils.OnCompleteListener<NewGoodsBean[]>listener){
+        OkHttpUtils utils = new OkHttpUtils(context);
+        utils.setRequestUrl(I.REQUEST_FIND_NEW_BOUTIQUE_GOODS)
+                .addParam(I.NewAndBoutiqueGoods.CAT_ID,String.valueOf(CatId))
+                .addParam(I.PAGE_ID,String.valueOf(PageId))
+                .addParam(I.PAGE_SIZE,String.valueOf(I.PAGE_SIZE_DEFAULT))
+                .targetClass(NewGoodsBean[].class)
+                .execute(listener);
+    }
 }
