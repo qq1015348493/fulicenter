@@ -1,5 +1,6 @@
 package cn.ucai.fulicenter.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.Adapter;
@@ -15,17 +16,19 @@ import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import cn.ucai.fulicenter.Bean.BoutiqueBean;
 import cn.ucai.fulicenter.I;
 import cn.ucai.fulicenter.R;
 import cn.ucai.fulicenter.utils.ImageLoader;
+import cn.ucai.fulicenter.utils.MFGT;
 
 /**
  * Created by Administrator on 2016/10/19.
  */
 
 public class BoutiqueAdapter extends Adapter {
-    Context context;
+    static Context context;
     ArrayList<BoutiqueBean> mList;
     boolean isMore;
 
@@ -113,6 +116,11 @@ public class BoutiqueAdapter extends Adapter {
         @Bind(R.id.boutique_linearlayout)
         LinearLayout boutiqueLinearlayout;
 
+        @OnClick(R.id.boutique_linearlayout)
+        public void onClick(){
+            int goodsId = (int) boutiqueLinearlayout.getTag();
+            MFGT.gotoBoutiqueGoods((Activity) context,goodsId);
+        }
         BoutiqueViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
