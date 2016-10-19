@@ -58,9 +58,6 @@ public class New_good extends Fragment {
         mcontext = (MainActivity) getContext();
         View view = inflater.inflate(R.layout.fragment_new_good, container,false);
         ButterKnife.bind(this, view);
-
-
-
         L.i("New_good OncreateView");
         setListener();
         return view;

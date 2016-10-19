@@ -145,7 +145,7 @@ public class NewGoodsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
 
-    class FootViewHolder extends ViewHolder {
+    static class FootViewHolder extends ViewHolder {
         @Bind(R.id.footer)
         TextView foot;
 
@@ -155,7 +155,7 @@ public class NewGoodsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         }
     }
 
-    class NewGoodsViewHolder extends ViewHolder {
+   static class NewGoodsViewHolder extends ViewHolder {
         @Bind(R.id.goodiv)
         ImageView netivPhoto;
         @Bind(R.id.goodname)

@@ -2,6 +2,7 @@ package cn.ucai.fulicenter.net;
 
 import android.content.Context;
 
+import cn.ucai.fulicenter.Bean.BoutiqueBean;
 import cn.ucai.fulicenter.Bean.NewGoodsBean;
 import cn.ucai.fulicenter.I;
 import cn.ucai.fulicenter.utils.OkHttpUtils;
@@ -18,6 +19,12 @@ public class NetDao {
                 .addParam(I.PAGE_ID,String.valueOf(PageId))
                 .addParam(I.PAGE_SIZE,String.valueOf(I.PAGE_SIZE_DEFAULT))
                 .targetClass(NewGoodsBean[].class)
+                .execute(listener);
+    }
+    public static void downloadBoutique(Context context, OkHttpUtils.OnCompleteListener<BoutiqueBean[]>listener){
+        OkHttpUtils utils = new OkHttpUtils(context);
+        utils.setRequestUrl(I.REQUEST_FIND_BOUTIQUES)
+                .targetClass(BoutiqueBean[].class)
                 .execute(listener);
     }
 }

@@ -4,12 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <fragment
+    <LinearLayout
         android:layout_above="@+id/radGroup"
         android:id="@+id/fragment"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:name="cn.ucai.fulicenter.fragment.New_good"/>
+        />
     <LinearLayout
         android:id="@+id/radGroup"
         android:layout_width="match_parent"
