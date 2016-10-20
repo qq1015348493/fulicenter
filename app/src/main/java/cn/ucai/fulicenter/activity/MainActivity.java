@@ -21,6 +21,7 @@ import cn.ucai.fulicenter.utils.L;
 public class MainActivity extends AppCompatActivity  {
     New_good newgoodsFragment;
     Boutique boutiqueFragment;
+    Category categoryFragment;
     @Bind(R.id.new_good)
     RadioButton newGood;
     @Bind(R.id.boutique)
@@ -53,11 +54,14 @@ public class MainActivity extends AppCompatActivity  {
         boutiqueFragment = new Boutique();
         mfragment[0]=newgoodsFragment;
         mfragment[1]=boutiqueFragment;
+        mfragment[2]=categoryFragment;
         getSupportFragmentManager()
                 .beginTransaction()
                 .add(R.id.fragment,newgoodsFragment)
-                .add(R.id.fragment,boutiqueFragment)
+              /*  .add(R.id.fragment,boutiqueFragment)
                 .hide(boutiqueFragment)
+                .add(R.id.fragment,categoryFragment)
+                .hide(categoryFragment)*/
                 .show(newgoodsFragment)
                 .commit();
     }
@@ -98,31 +102,31 @@ public class MainActivity extends AppCompatActivity  {
     }*/
 
     public void onCheckedChange(View v) {
-       /* FragmentManager manager = getSupportFragmentManager();
-        FragmentTransaction transaction = manager.beginTransaction();*/
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
         switch (v.getId()) {
             case R.id.new_good:
                 L.i("new_good");
                 index = 0;
 //                mutual((RadioButton) v);
-                /*New_good new_good = new New_good();
-               transaction.add(R.id.fragment, new_good);
-                transaction.commit();*/
+                New_good new_good = new New_good();
+               transaction.replace(R.id.fragment, new_good);
+                transaction.commit();
                 break;
             case R.id.boutique:
                 L.i("boutique");
                 index = 1;
-               /* Boutique boutique = new Boutique();
+                Boutique boutique = new Boutique();
                 transaction.replace(R.id.fragment, boutique);
-                transaction.commit();*/
+                transaction.commit();
 //                mutual((RadioButton) v);
                 break;
             case R.id.category:
                 index = 2;
 //                mutual((RadioButton) v);
-                /*Category category = new Category();
+                Category category = new Category();
                 transaction.replace(R.id.fragment,category);
-                transaction.commit();*/
+                transaction.commit();
                 break;
             case R.id.cart:
                 index =3;
@@ -134,7 +138,7 @@ public class MainActivity extends AppCompatActivity  {
                 break;
         }
         setB();
-        setFragment();
+//        setFragment();
     }
 
     private void setFragment() {

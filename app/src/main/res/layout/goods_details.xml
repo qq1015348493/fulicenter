@@ -53,7 +53,8 @@
         app:paddingEnd="10dp"
         android:layout_weight="0.04" />
     <EditText
-        android:singleLine="true"
+        android:editable="false"
+        android:background="@null"
         android:id="@+id/Goods_explain"
         android:layout_marginTop="10dp"
         android:layout_width="wrap_content"

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:background="@color/emojicon_tab_selected">
+
+    <ImageView
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="60dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/category_child"
+        android:id="@+id/category_child_image" />
+
+    <TextView
+        android:id="@+id/category_child_name"
+        android:layout_marginLeft="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:text="防晒"
+        android:textSize="20dp"
+        android:gravity="center"/>
+</LinearLayout>

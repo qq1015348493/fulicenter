@@ -175,7 +175,6 @@ public class New_good extends Fragment {
                 jiazai.setVisibility(View.GONE);
                 CommonUtils.showShortToast(error);
                 L.e("error"+error);
-
             }
         });
     }
