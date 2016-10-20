@@ -48,7 +48,6 @@ public class BoutiqueGoods extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.boutique_goods);
         ButterKnife.bind(this);
-        Intent intent = new Intent();
         goodsId = getIntent().getIntExtra(I.Boutique.CAT_ID,0);
         L.i(goodsId+"");
         initView();

@@ -1,11 +1,13 @@
 package cn.ucai.fulicenter.utils;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 
 import cn.ucai.fulicenter.I;
 import cn.ucai.fulicenter.R;
 import cn.ucai.fulicenter.activity.BoutiqueGoods;
+import cn.ucai.fulicenter.activity.CategoryGoods;
 import cn.ucai.fulicenter.activity.Goods_Details;
 import cn.ucai.fulicenter.activity.MainActivity;
 
@@ -39,4 +41,14 @@ public class MFGT {
         context.startActivity(intent);
         context.overridePendingTransition(R.anim.push_left_in,R.anim.push_left_out);
     }
+
+    public static void gotoCategoryGoods(Activity context, int id, String name) {
+        Intent intent = new Intent();
+        intent.setClass(context, CategoryGoods.class);
+        intent.putExtra(I.Category.KEY_NAME,name);
+        intent.putExtra(I.Category.KEY_ID,id);
+        startActivity(context,intent);
+    }
+
+
 }

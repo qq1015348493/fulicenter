@@ -33,15 +33,14 @@ import cn.ucai.fulicenter.utils.OkHttpUtils;
  * A simple {@link Fragment} subclass.
  */
 public class Category extends Fragment {
+    ExpandableListView melvCaregory;
     CategoryAdapter mAdapter;
     ArrayList<CategoryGroupBean> mGrouplist = new ArrayList<>();
     ArrayList<ArrayList<CategoryChildBean>> mChildList = new ArrayList<>();
     @Bind(R.id.Category_list)
     ExpandableListView CategoryList;
     Context context;
-    int parentId;
     int pageid=1;
-
     public Category() {
         // Required empty public constructor
     }
@@ -77,16 +76,12 @@ public class Category extends Fragment {
                 ArrayList<CategoryGroupBean> arrayList = ConvertUtils.array2List(result);
                 if(result!=null){
 
-                    mGrouplist = arrayList;
+                    mGrouplist.addAll(arrayList);
 //                    L.i("发"+mGrouplist.toString());
                     for(int i=0;i<result.length;i++){
-                        parentId = mGrouplist.get(i).getId();
-                        /*String S = "";
-                        for(int j=0;j<100_00;j++){
-                            S=S+"a";
-                        }*/
-                        downloadchikd(parentId);
-                        SystemClock.sleep(1000);
+                        mChildList.add(new ArrayList<CategoryChildBean>());
+                        CategoryGroupBean g = mGrouplist.get(i);
+                        downloadchikd(g.getId(),i);
                     }
                     initView();
                 }
@@ -98,16 +93,16 @@ public class Category extends Fragment {
         });
     }
 
-    private void  downloadchikd(int parentId) {
+    private void  downloadchikd(int id, final int i) {
 
-            NetDao.downloadChildList(context,parentId,pageid,new OkHttpUtils.OnCompleteListener<CategoryChildBean[]>() {
+            NetDao.downloadChildList(context,id,pageid,new OkHttpUtils.OnCompleteListener<CategoryChildBean[]>() {
                 @Override
                 public void onSuccess(CategoryChildBean[] result) {
-
                     if(result!=null){
                         ArrayList<CategoryChildBean> child = ConvertUtils.array2List(result);
-                        mChildList.add(child);
+                        mChildList.set(i,child);
                     }
+
                 }
                 @Override
                 public void onError(String error) {
