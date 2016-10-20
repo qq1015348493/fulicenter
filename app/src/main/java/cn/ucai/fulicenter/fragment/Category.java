@@ -3,6 +3,7 @@ package cn.ucai.fulicenter.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -32,7 +33,6 @@ import cn.ucai.fulicenter.utils.OkHttpUtils;
  * A simple {@link Fragment} subclass.
  */
 public class Category extends Fragment {
-    ExpandableListView melvCaregory;
     CategoryAdapter mAdapter;
     ArrayList<CategoryGroupBean> mGrouplist = new ArrayList<>();
     ArrayList<ArrayList<CategoryChildBean>> mChildList = new ArrayList<>();
@@ -81,11 +81,12 @@ public class Category extends Fragment {
 //                    L.i("发"+mGrouplist.toString());
                     for(int i=0;i<result.length;i++){
                         parentId = mGrouplist.get(i).getId();
-                        String S = "";
+                        /*String S = "";
                         for(int j=0;j<100_00;j++){
                             S=S+"a";
-                        }
+                        }*/
                         downloadchikd(parentId);
+                        SystemClock.sleep(1000);
                     }
                     initView();
                 }

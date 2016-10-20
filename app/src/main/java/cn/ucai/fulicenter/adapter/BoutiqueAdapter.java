@@ -118,8 +118,8 @@ public class BoutiqueAdapter extends Adapter {
 
         @OnClick(R.id.boutique_linearlayout)
         public void onClick(){
-            int goodsId = (int) boutiqueLinearlayout.getTag();
-            MFGT.gotoBoutiqueGoods((Activity) context,goodsId);
+            int catId = (int) boutiqueLinearlayout.getTag();
+            MFGT.gotoBoutiqueGoods((Activity) context,catId);
         }
         BoutiqueViewHolder(View view) {
             super(view);

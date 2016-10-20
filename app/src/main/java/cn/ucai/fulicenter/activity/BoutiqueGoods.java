@@ -49,7 +49,7 @@ public class BoutiqueGoods extends AppCompatActivity {
         setContentView(R.layout.boutique_goods);
         ButterKnife.bind(this);
         Intent intent = new Intent();
-        goodsId = getIntent().getIntExtra(I.GoodsDetails.KEY_GOODS_ID,0);
+        goodsId = getIntent().getIntExtra(I.Boutique.CAT_ID,0);
         L.i(goodsId+"");
         initView();
         initData();
