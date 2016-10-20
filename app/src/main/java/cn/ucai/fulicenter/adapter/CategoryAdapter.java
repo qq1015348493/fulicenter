@@ -107,8 +107,8 @@ public class CategoryAdapter extends BaseExpandableListAdapter {
         CategoryChildBean child = getChild(groupPosition,childPosition);
         ImageLoader.downloadImg(context,holder.category_child_image,childList.get(groupPosition).get(childPosition).getImageUrl());
         holder.category_child_name.setText(childList.get(groupPosition).get(childPosition).getName());
-//        holder.category_child_linearLayout.setTag(childList.get(groupPosition).get(childPosition).getId());
-        id = childList.get(groupPosition).get(childPosition).getId();
+        holder.category_child_linearLayout.setId(childList.get(groupPosition).get(childPosition).getId());
+//        id = childList.get(groupPosition).get(childPosition).getId();
         return convertView;
     }
 
@@ -136,6 +136,7 @@ public class CategoryAdapter extends BaseExpandableListAdapter {
 
           @OnClick(R.id.category_child)
          public  void OnClick(){
+              id= category_child_linearLayout.getId();
              String name = category_child_name.getText().toString();
              MFGT.gotoCategoryGoods((Activity) context,id,name);
 
