@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray_pressed"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/btn_white_normal">
+        <ImageView
+            android:id="@+id/personal_back"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:src="@drawable/back"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="账号注册"
+            android:layout_gravity="center"
+            android:textSize="20dp"
+            android:layout_marginLeft="100dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/btn_white_normal">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint=" 用户名"
+            android:drawableRight="@drawable/icon_account"
+            android:id="@+id/personal_register_username" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/divide_line_bg"/>
+        <EditText
+            android:id="@+id/personal_register_nick"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableRight="@drawable/icon_account"
+            android:hint=" 昵称"/>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/divide_line_bg"/>
+        <EditText
+            android:id="@+id/personal_register_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint=" 密码"
+            android:drawableRight="@drawable/icon_pwd"/>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/divide_line_bg"/>
+        <EditText
+            android:id="@+id/personal_register_password2"
+            android:layout_width="match_parent"
+            android:drawableRight="@drawable/icon_pwd"
+            android:layout_height="wrap_content"
+            android:hint="确认密码"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/personal_register_register"
+            android:background="@color/btn_blue_pressed"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="免费注册"/>
+    </LinearLayout>
+</LinearLayout>

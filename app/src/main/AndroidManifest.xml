@@ -27,6 +27,8 @@
 
         </activity>
         <activity android:name=".activity.CategoryGoods"></activity>
+        <activity android:name=".activity.Login"></activity>
+        <activity android:name=".activity.Register"></activity>
     </application>
 
 </manifest>
