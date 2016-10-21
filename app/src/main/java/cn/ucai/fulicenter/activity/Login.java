@@ -21,8 +21,10 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.ucai.fulicenter.Bean.Result;
 import cn.ucai.fulicenter.Bean.UserAvatar;
+import cn.ucai.fulicenter.I;
 import cn.ucai.fulicenter.R;
 import cn.ucai.fulicenter.net.NetDao;
+import cn.ucai.fulicenter.utils.FuLiCenterApplication;
 import cn.ucai.fulicenter.utils.L;
 import cn.ucai.fulicenter.utils.OkHttpUtils;
 
@@ -48,6 +50,10 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.personal_login);
         ButterKnife.bind(this);
+        name = getIntent().getStringExtra(I.User.USER_NAME);
+        password=getIntent().getStringExtra(I.User.PASSWORD);
+        personalUsername.setText(name);
+        personalPassword.setText(password);
     }
 
     @OnClick({R.id.personal_back, R.id.personal_logn, R.id.personal_register})
@@ -66,12 +72,12 @@ public class Login extends AppCompatActivity {
                     NetDao.Login(this, personalUsername.getText().toString(), personalPassword.getText().toString(), new OkHttpUtils.OnCompleteListener<Result>() {
                         @Override
                         public void onSuccess(Result result) {
-                            String json = result.getRetData().toString();
-                            Gson gson = new Gson();
-                            Map map = gson.fromJson(json, Map.class);
-                            json = map.get("pageData").toString();
-                            UserAvatar[] users = gson.fromJson(json, UserAvatar[].class);
-                            Toast.makeText(Login.this,users.toString(),Toast.LENGTH_LONG).show();
+                            if(result==null){
+                                Toast.makeText(Login.this,"erro",Toast.LENGTH_SHORT).show();
+                            }else {
+                                Toast.makeText(Login.this,result.getRetCode()+"",Toast.LENGTH_LONG).show();
+                                FuLiCenterApplication.username=personalUsername.getText().toString();
+                            }
                         }
 
                         @Override

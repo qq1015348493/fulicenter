@@ -11,6 +11,8 @@ import cn.ucai.fulicenter.Bean.NewGoodsBean;
 import cn.ucai.fulicenter.Bean.Result;
 import cn.ucai.fulicenter.I;
 import cn.ucai.fulicenter.activity.CategoryGoods;
+import cn.ucai.fulicenter.activity.Register;
+import cn.ucai.fulicenter.utils.MD5;
 import cn.ucai.fulicenter.utils.OkHttpUtils;
 
 /**
@@ -76,8 +78,19 @@ public class NetDao {
         OkHttpUtils utils = new OkHttpUtils(context);
         utils.setRequestUrl(I.REQUEST_LOGIN)
                 .addParam(I.User.USER_NAME,String.valueOf(name))
-                .addParam(I.User.PASSWORD,String.valueOf(password))
+                .addParam(I.User.PASSWORD,MD5.getMessageDigest(password))
                 .targetClass(Result.class)
+                .execute(listener);
+    }
+
+    public static void register(Context context, String user, String nick, String password, OkHttpUtils.OnCompleteListener<Result> listener) {
+        OkHttpUtils<Result> utils = new OkHttpUtils(context);
+        utils.setRequestUrl(I.REQUEST_REGISTER)
+                .addParam(I.User.USER_NAME,user)
+                .addParam(I.User.NICK,nick)
+                .addParam(I.User.PASSWORD, MD5.getMessageDigest(password))
+                .targetClass(Result.class)
+                .post()
                 .execute(listener);
     }
 }

@@ -16,12 +16,16 @@ import cn.ucai.fulicenter.R;
 import cn.ucai.fulicenter.fragment.Boutique;
 import cn.ucai.fulicenter.fragment.Category;
 import cn.ucai.fulicenter.fragment.New_good;
+import cn.ucai.fulicenter.fragment.Personal;
+import cn.ucai.fulicenter.utils.FuLiCenterApplication;
 import cn.ucai.fulicenter.utils.L;
+import cn.ucai.fulicenter.utils.MFGT;
 
 public class MainActivity extends AppCompatActivity  {
     New_good newgoodsFragment;
     Boutique boutiqueFragment;
     Category categoryFragment;
+    Personal personalFragment;
     @Bind(R.id.new_good)
     RadioButton newGood;
     @Bind(R.id.boutique)
@@ -52,9 +56,11 @@ public class MainActivity extends AppCompatActivity  {
         mfragment = new Fragment[5];
         newgoodsFragment = new New_good();
         boutiqueFragment = new Boutique();
+        personalFragment = new Personal();
         mfragment[0]=newgoodsFragment;
         mfragment[1]=boutiqueFragment;
         mfragment[2]=categoryFragment;
+        mfragment[4]=personalFragment;
         getSupportFragmentManager()
                 .beginTransaction()
                 .add(R.id.fragment,newgoodsFragment)
@@ -133,8 +139,13 @@ public class MainActivity extends AppCompatActivity  {
 //                mutual((RadioButton) v);
                 break;
             case R.id.personal:
-                index = 4;
 //                mutual((RadioButton) v);
+                if(FuLiCenterApplication.username==null){
+                    MFGT.startActivity(this,Login.class);
+                }
+                Personal  personal= new Personal();
+                transaction.replace(R.id.fragment,personal).commit();
+                index = 4;
                 break;
         }
         setB();

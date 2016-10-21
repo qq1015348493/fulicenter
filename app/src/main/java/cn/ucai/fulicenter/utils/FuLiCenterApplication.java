@@ -10,6 +10,16 @@ import android.content.Context;
 public class FuLiCenterApplication extends Application{
     public static FuLiCenterApplication applicationContext ;
     private static  FuLiCenterApplication instance;
+    public static String username;
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     public FuLiCenterApplication() {
         super.onCreate();
         applicationContext=this;
