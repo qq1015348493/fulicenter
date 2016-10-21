@@ -35,6 +35,11 @@ public class Register extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.personal_register);
         ButterKnife.bind(this);
+        initView();
+    }
+
+    private void initView() {
+
     }
 
     @OnClick({R.id.personal_back, R.id.personal_register_register})

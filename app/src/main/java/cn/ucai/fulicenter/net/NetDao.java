@@ -8,6 +8,7 @@ import cn.ucai.fulicenter.Bean.BoutiqueBean;
 import cn.ucai.fulicenter.Bean.CategoryChildBean;
 import cn.ucai.fulicenter.Bean.CategoryGroupBean;
 import cn.ucai.fulicenter.Bean.NewGoodsBean;
+import cn.ucai.fulicenter.Bean.Result;
 import cn.ucai.fulicenter.I;
 import cn.ucai.fulicenter.activity.CategoryGoods;
 import cn.ucai.fulicenter.utils.OkHttpUtils;
@@ -70,4 +71,13 @@ public class NetDao {
                 .targetClass(NewGoodsBean[].class)
                 .execute(listener);
    }
+
+    public static void Login(Context context,String name, String password, OkHttpUtils.OnCompleteListener<Result>listener) {
+        OkHttpUtils utils = new OkHttpUtils(context);
+        utils.setRequestUrl(I.REQUEST_LOGIN)
+                .addParam(I.User.USER_NAME,String.valueOf(name))
+                .addParam(I.User.PASSWORD,String.valueOf(password))
+                .targetClass(Result.class)
+                .execute(listener);
+    }
 }

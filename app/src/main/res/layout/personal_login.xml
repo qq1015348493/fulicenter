@@ -53,6 +53,7 @@
             android:id="@+id/personal_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:inputType="textPassword"
             android:hint=" 密码"
             android:drawableRight="@drawable/icon_pwd"/>
     </LinearLayout>
