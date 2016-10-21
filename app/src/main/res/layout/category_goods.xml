@@ -1,35 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <LinearLayout
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:background="@color/holo_red_light">
-        <ImageView
-            android:id="@+id/category_goods_back"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/back"
-            android:layout_marginLeft="10dp"/>
-
-        <TextView
-            android:id="@+id/category_goods_name"
-            android:layout_gravity="center"
+        android:layout_height="40dp"
+        android:background="@color/main_orange">
+        <LinearLayout
+            android:id="@+id/backClickArea"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="100dp"
-            android:text="美妆"
-            android:textColor="@color/error_item_color"
-            android:textSize="20dp"/>
-        <ImageView
-            android:id="@+id/category_goods_arrow2"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@mipmap/arrow2_up"
-            />
-    </LinearLayout>
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp">
+            <ImageView
+                android:id="@+id/category_goods_back"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center"
+                android:layout_height="wrap_content"
+                android:src="@drawable/back"
+                />
+        </LinearLayout>
+        <cn.ucai.fulicenter.views.CatChildFilterButton
+            android:id="@+id/btnCatChildFilter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="55dp"
+            android:layout_marginRight="10dp"
+            android:drawableRight="@drawable/arrow2_up"
+            android:background="@null"
+            android:textColor="@color/white"
+            android:text="分类"/>
+
+    </RelativeLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -51,14 +56,19 @@
             android:text="上架时间"
             android:drawableRight="@mipmap/arrow_order_up"/>
     </LinearLayout>
-            <LinearLayout
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/category_goods_SRL"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/category_goods_RecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/category_goods_RecyclerView"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
 
-                </android.support.v7.widget.RecyclerView>
-            </LinearLayout>
+            </android.support.v7.widget.RecyclerView>
+        </LinearLayout>
+    </android.support.v4.widget.SwipeRefreshLayout>
 </LinearLayout>

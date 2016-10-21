@@ -27,7 +27,9 @@ public class CategoryAdapter extends BaseExpandableListAdapter {
     Context context;
     ArrayList<CategoryGroupBean> groupList;
     ArrayList<ArrayList<CategoryChildBean>> childList;
+    ArrayList<CategoryChildBean> list ;
     int id;
+    String name;
     public CategoryAdapter(Context context, ArrayList<CategoryGroupBean> groupList, ArrayList<ArrayList<CategoryChildBean>> childList) {
         this.context = context;
         this.groupList = groupList;
@@ -109,6 +111,9 @@ public class CategoryAdapter extends BaseExpandableListAdapter {
         holder.category_child_name.setText(childList.get(groupPosition).get(childPosition).getName());
         holder.category_child_linearLayout.setId(childList.get(groupPosition).get(childPosition).getId());
 //        id = childList.get(groupPosition).get(childPosition).getId();
+        list = childList.get(groupPosition);
+        L.i(list.toString());
+        name = groupList.get(groupPosition).getName();
         return convertView;
     }
 
@@ -137,8 +142,7 @@ public class CategoryAdapter extends BaseExpandableListAdapter {
           @OnClick(R.id.category_child)
          public  void OnClick(){
               id= category_child_linearLayout.getId();
-             String name = category_child_name.getText().toString();
-             MFGT.gotoCategoryGoods((Activity) context,id,name);
+             MFGT.gotoCategoryGoods((Activity) context,id,name,list);
 
          }
 

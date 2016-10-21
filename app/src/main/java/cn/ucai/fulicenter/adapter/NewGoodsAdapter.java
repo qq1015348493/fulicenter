@@ -3,6 +3,7 @@ package cn.ucai.fulicenter.adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.IntegerRes;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.ViewHolder;
 import android.view.LayoutInflater;
@@ -13,6 +14,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -32,6 +35,7 @@ import cn.ucai.fulicenter.utils.MFGT;
 public class NewGoodsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     Context context;
     private ArrayList<NewGoodsBean> newGoodsBeenList;
+     int soryBy = I.SORT_BY_PRICE_DESC;
 
     //这是构造器用来降低耦合度
     public NewGoodsAdapter(Context context, ArrayList<NewGoodsBean> goodsBeenList) {
@@ -142,6 +146,46 @@ public class NewGoodsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         }
         //如果不是最后就代表显示商品信息
         return NEW_GOODS_TYPE;
+    }
+
+    public int getSoryBy(){
+        return soryBy;
+    }
+
+    public void setSoryBy(int soryBy) {
+        this.soryBy = soryBy;
+        sortyBy();
+
+        notifyDataSetChanged();
+    }
+
+    private void sortyBy() {
+        Collections.sort(newGoodsBeenList, new Comparator<NewGoodsBean>() {
+            @Override
+            public int compare(NewGoodsBean lhs, NewGoodsBean rhs) {
+                int result =0;
+                switch (soryBy){
+                    case I.SORT_BY_ADDTIME_ASC:
+                        result  = (int)(Long.valueOf(lhs.getAddTime())-Long.valueOf(rhs.getAddTime()));
+                    break;
+                    case I.SORT_BY_ADDTIME_DESC:
+                        result =(int)(Long.valueOf(rhs.getAddTime())-Long.valueOf(lhs.getAddTime()));
+                        break;
+                    case I.SORT_BY_PRICE_ASC:
+                        result = getPrice(lhs.getCurrencyPrice())-getPrice(rhs.getCurrencyPrice());
+                        break;
+                    case I.SORT_BY_PRICE_DESC:
+                        result  = getPrice(rhs.getCurrencyPrice())-getPrice(lhs.getCurrencyPrice());
+                    break;
+                }
+                return result;
+            }
+        });
+    }
+
+    private int getPrice(String price) {
+        price = price.substring(price.indexOf("￥")+1);
+        return Integer.valueOf(price);
     }
 
 
