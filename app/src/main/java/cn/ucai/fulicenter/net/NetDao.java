@@ -74,12 +74,12 @@ public class NetDao {
                 .execute(listener);
    }
 
-    public static void Login(Context context,String name, String password, OkHttpUtils.OnCompleteListener<Result>listener) {
-        OkHttpUtils utils = new OkHttpUtils(context);
+    public static void Login(Context context,String name, String password, OkHttpUtils.OnCompleteListener<String>listener) {
+        OkHttpUtils<String> utils = new OkHttpUtils(context);
         utils.setRequestUrl(I.REQUEST_LOGIN)
                 .addParam(I.User.USER_NAME,String.valueOf(name))
                 .addParam(I.User.PASSWORD,MD5.getMessageDigest(password))
-                .targetClass(Result.class)
+                .targetClass(String.class)
                 .execute(listener);
     }
 

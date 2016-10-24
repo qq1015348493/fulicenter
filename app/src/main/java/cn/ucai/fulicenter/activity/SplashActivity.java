@@ -4,7 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
+import cn.ucai.fulicenter.Bean.UserAvatar;
 import cn.ucai.fulicenter.R;
+import cn.ucai.fulicenter.dao.UserDao;
+import cn.ucai.fulicenter.utils.FuLiCenterApplication;
+import cn.ucai.fulicenter.utils.L;
 import cn.ucai.fulicenter.utils.MFGT;
 
 /**
@@ -14,11 +18,12 @@ import cn.ucai.fulicenter.utils.MFGT;
 public class SplashActivity extends AppCompatActivity {
 
     private final long sleepTime=2000;
-
+    SplashActivity mContext;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash2);
+        mContext = this;
     }
 
     @Override
@@ -28,7 +33,6 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void run() {
                 long start = System.currentTimeMillis();
-
                 long costTime = System.currentTimeMillis() - start;
                 if(sleepTime-costTime>0){
                     try{
@@ -37,7 +41,13 @@ public class SplashActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 }
-                MFGT.gotoMainActivity(SplashActivity.this);
+                UserAvatar user = FuLiCenterApplication.getUser();
+                if(user==null){
+                    UserDao dao = new UserDao(mContext);
+                    user = dao.getUser("yinfang");
+                    L.i("SplashActivity 下载 user="+user);
+                }
+               MFGT.gotoMainActivity(SplashActivity.this);
             }
         }).start();
     }
