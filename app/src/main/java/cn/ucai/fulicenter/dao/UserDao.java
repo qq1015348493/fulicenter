@@ -4,9 +4,6 @@ import android.content.Context;
 
 import cn.ucai.fulicenter.Bean.UserAvatar;
 
-/**
- * Created by Administrator on 2016/10/24.
- */
 
 public class UserDao {
     public static final String USER_TABLE_NAME = "t_superwechat_user";

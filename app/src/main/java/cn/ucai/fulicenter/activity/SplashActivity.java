@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import cn.ucai.fulicenter.Bean.UserAvatar;
 import cn.ucai.fulicenter.R;
+import cn.ucai.fulicenter.dao.SharePrefrenceUtils;
 import cn.ucai.fulicenter.dao.UserDao;
 import cn.ucai.fulicenter.utils.FuLiCenterApplication;
 import cn.ucai.fulicenter.utils.L;
@@ -42,10 +43,14 @@ public class SplashActivity extends AppCompatActivity {
                     }
                 }
                 UserAvatar user = FuLiCenterApplication.getUser();
-                if(user==null){
+                String username = SharePrefrenceUtils.getInstance(mContext).getUser();
+                if(user==null&&username!=null){
                     UserDao dao = new UserDao(mContext);
-                    user = dao.getUser("yinfang");
-                    L.i("SplashActivity 下载 user="+user);
+                    user = dao.getUser(username);
+                    L.i("SplashActivity  user="+user);
+                    if(user!=null){
+                        FuLiCenterApplication.setUser(user);
+                    }
                 }
                MFGT.gotoMainActivity(SplashActivity.this);
             }

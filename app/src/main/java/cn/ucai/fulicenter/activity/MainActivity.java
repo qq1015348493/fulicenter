@@ -9,10 +9,9 @@ import android.view.View;
 import android.view.Window;
 import android.widget.FrameLayout;
 import android.widget.RadioButton;
-
+import cn.ucai.fulicenter.R;
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import cn.ucai.fulicenter.R;
 import cn.ucai.fulicenter.fragment.Boutique;
 import cn.ucai.fulicenter.fragment.Category;
 import cn.ucai.fulicenter.fragment.New_good;
@@ -46,7 +45,6 @@ public class MainActivity extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        L.i("MainActivity onCreate");
 //        setListenr();
         initView();
         initFragment();
@@ -140,7 +138,7 @@ public class MainActivity extends AppCompatActivity  {
                 break;
             case R.id.personal:
 //                mutual((RadioButton) v);
-                if(FuLiCenterApplication.username==null){
+                if(FuLiCenterApplication.getUser()==null){
                     MFGT.startActivity(this,Login.class);
                 }
                 Personal  personal= new Personal();

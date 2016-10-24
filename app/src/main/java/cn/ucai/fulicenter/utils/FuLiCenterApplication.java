@@ -12,7 +12,6 @@ import cn.ucai.fulicenter.Bean.UserAvatar;
 public class FuLiCenterApplication extends Application{
     public static FuLiCenterApplication applicationContext ;
     private static  FuLiCenterApplication instance;
-    public static String username;
     public  static UserAvatar user ;
 
     public static UserAvatar getUser() {
@@ -23,13 +22,7 @@ public class FuLiCenterApplication extends Application{
         FuLiCenterApplication.user = user;
     }
 
-    public String getUsername() {
-        return username;
-    }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
 
     public FuLiCenterApplication() {
         super.onCreate();

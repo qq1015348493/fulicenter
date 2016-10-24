@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="cn.ucai.fulicenter.fragment.Personal"
-    android:background="@color/btn_register_normal"
+    android:background="@color/emojicon_tab_selected"
     android:orientation="vertical">
     <LinearLayout
         android:layout_width="match_parent"
@@ -42,7 +42,7 @@
                 android:layout_marginLeft="20dp"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:src="@drawable/icon_account"/>
+                android:src="@drawable/contactlogo"/>
             <TextView
                 android:layout_marginLeft="20dp"
                 android:layout_width="wrap_content"
@@ -53,7 +53,7 @@
                 android:layout_marginLeft="20dp"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:src="@drawable/icon_account"/>
+                android:src="@drawable/tb_icon_home_qrcode_gray"/>
         </LinearLayout>
         <LinearLayout
             android:background="@color/holo_red_light"
@@ -112,5 +112,169 @@
                     android:textSize="20dp"/>
             </LinearLayout>
         </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <LinearLayout
+                android:background="#fff"
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:weightSum="1">
+                <TextView
+                    android:padding="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="我的订单"
+                    android:textSize="20dp"
+                    android:layout_marginLeft="10dp"
+                    android:textStyle="bold"/>
+                <TextView
+                    android:padding="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="查看全部已购宝贝"
+                    android:layout_marginLeft="120dp"
+                    android:drawablePadding="10dp"
+                    android:drawableRight="@mipmap/right" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageButton
+                    android:paddingTop="10dp"
+                    android:background="@color/btn_register_normal"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/order_list1"/>
+                <ImageButton
+                    android:paddingTop="10dp"
+                    android:background="@color/btn_register_normal"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/order_list2"/>
+                <ImageButton
+                    android:paddingTop="10dp"
+                    android:background="@color/btn_register_normal"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/order_list3"/>
+                <ImageButton
+                    android:paddingTop="10dp"
+                    android:background="@color/btn_register_normal"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/order_list4"/>
+                <ImageButton
+                    android:paddingTop="10dp"
+                    android:background="@color/btn_register_normal"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/order_list5"/>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"/>
+    <LinearLayout
+        android:background="#fff"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:padding="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="我的卡包券"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:layout_marginLeft="10dp"
+            android:drawableRight="@mipmap/right"
+            android:id="@+id/textView" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginTop="2dp"
+        android:background="#fff"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_marginTop="2dp"
+            android:padding="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/center_card_coupon1"
+            android:text="生活卷"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:drawablePadding="10dp"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginTop="2dp"
+        android:background="#fff"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_marginTop="2dp"
+            android:padding="10dp"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/center_card_coupon2"
+            android:text="网店券"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:drawablePadding="10dp"/>
+
+        <TextView
+            android:padding="5dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="暂无可用优惠券"
+            android:drawablePadding="10dp"
+            android:drawableRight="@mipmap/right"
+            android:id="@+id/textView2" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginTop="2dp"
+        android:background="#fff"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_marginTop="2dp"
+            android:padding="10dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/center_card_coupon3"
+            android:text="会员卡"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:drawablePadding="10dp"/>
+        <TextView
+            android:padding="5dp"
+            android:lines="1"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="一卡在手，逛店无忧"
+            android:layout_marginLeft="100dp"
+            android:drawablePadding="10dp"
+            android:drawableRight="@mipmap/right" />
     </LinearLayout>
 </LinearLayout>
