@@ -39,11 +39,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <ImageView
+                android:id="@+id/personal_iv"
                 android:layout_marginLeft="20dp"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:src="@drawable/contactlogo"/>
             <TextView
+                android:id="@+id/personal_nick"
                 android:layout_marginLeft="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -67,6 +69,7 @@
                 android:layout_weight="1"
                 android:orientation="vertical">
                 <TextView
+                    android:id="@+id/collection_goods"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="1"
@@ -84,6 +87,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1">
                 <TextView
+                    android:id="@+id/collection_shops"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="28"
@@ -101,6 +105,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1">
                 <TextView
+                    android:id="@+id/footprint"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="58"
@@ -137,6 +142,7 @@
                     android:layout_marginLeft="10dp"
                     android:textStyle="bold"/>
                 <TextView
+                    android:id="@+id/all_collection_goods"
                     android:padding="5dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -149,6 +155,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <ImageButton
+                    android:id="@+id/Pending_payment"
                     android:paddingTop="10dp"
                     android:background="@color/btn_register_normal"
                     android:layout_width="0dp"
@@ -156,6 +163,7 @@
                     android:layout_height="wrap_content"
                     android:src="@drawable/order_list1"/>
                 <ImageButton
+                    android:id="@+id/Deliver_goods"
                     android:paddingTop="10dp"
                     android:background="@color/btn_register_normal"
                     android:layout_width="0dp"
@@ -163,6 +171,7 @@
                     android:layout_height="wrap_content"
                     android:src="@drawable/order_list2"/>
                 <ImageButton
+                    android:id="@+id/Goods_receipt"
                     android:paddingTop="10dp"
                     android:background="@color/btn_register_normal"
                     android:layout_width="0dp"
@@ -170,6 +179,7 @@
                     android:layout_height="wrap_content"
                     android:src="@drawable/order_list3"/>
                 <ImageButton
+                    android:id="@+id/evaluate"
                     android:paddingTop="10dp"
                     android:background="@color/btn_register_normal"
                     android:layout_width="0dp"
@@ -177,6 +187,7 @@
                     android:layout_height="wrap_content"
                     android:src="@drawable/order_list4"/>
                 <ImageButton
+                    android:id="@+id/refund"
                     android:paddingTop="10dp"
                     android:background="@color/btn_register_normal"
                     android:layout_width="0dp"
@@ -213,6 +224,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView
+            android:id="@+id/Life_certificate"
             android:layout_marginTop="2dp"
             android:padding="10dp"
             android:layout_width="match_parent"
@@ -229,6 +241,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView
+            android:id="@+id/Shop_voucher"
             android:layout_marginTop="2dp"
             android:padding="10dp"
             android:layout_width="0dp"
@@ -256,6 +269,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView
+            android:id="@+id/VIP_CD"
             android:layout_marginTop="2dp"
             android:padding="10dp"
             android:layout_width="0dp"

@@ -29,6 +29,16 @@ public class MFGT {
         intent.setClass(context,cls);
         startActivity(context,intent);
     }
+    public static void startActivityforResult(Activity context,Intent intent,int requestCode){
+        context.startActivityForResult(intent,requestCode);
+        context.overridePendingTransition(R.anim.push_left_in,R.anim.push_left_out);
+    }
+    public static void gotoLogin(Activity context){
+        Intent intent = new Intent();
+        intent.setClass(context,Login.class);
+        startActivityforResult(context,intent,I.REQUEST_CODE_LOGIN);
+    }
+
     public static void gotoGoodsDetails(Activity context,int goodsId){
         Intent intent = new Intent();
         intent.setClass(context, Goods_Details.class);
