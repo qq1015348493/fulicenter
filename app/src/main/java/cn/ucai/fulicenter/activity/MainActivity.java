@@ -173,7 +173,7 @@ public class MainActivity extends AppCompatActivity {
         if (FuLiCenterApplication.getUser() != null) {
             index = 4;
         }else {
-            index=0;
+            index=1;
         }
         setFragment();
     }

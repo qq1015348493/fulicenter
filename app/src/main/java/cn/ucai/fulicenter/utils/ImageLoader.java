@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.util.LruCache;
+import android.support.v4.util.TimeUtils;
 import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -360,15 +361,25 @@ public class ImageLoader {
                 .showImage(context);
     }
     public static String getAvatarUrl(UserAvatar user){
-        String url = I.DOWNLOAD_AVATAR_URL+I.NAME_OR_HXID+"="+user.getMuserName()
-                +I.AND+I.AVATAR_TYPE+"="+user.getMavatarPath()+I.AND+I.AVATAR_SUFFIX
-                +"="+user.getMavatarSuffix()+I.AND+"width=200&height=200";
-        return url;
+        //http://101.251.196.90:8000/FuLiCenterServerV2.0/downloadAvatar?
+        // name_or_hxid=a952702&avatarType=user_avatar&m_avatar_suffix=.jpg&width=200&height=200
+        if (user != null) {
+            String url = I.DOWNLOAD_AVATAR_URL + I.NAME_OR_HXID + "="
+
+                    + user.getMuserName() + I.AND + I.AVATAR_TYPE + "=" + user.getMavatarPath() + I.AND + I.AVATAR_SUFFIX
+                    + "=" + user.getMavatarSuffix() + I.AND + "width=200&height=200"+"&"
+                    +user.getMavatarLastUpdateTime();
+
+            L.i("-----"+url);
+            return url;
+
+        }
+        return null;
+
     }
     public static void setAvatar(String url,Context context,ImageView imageView){
-        L.i("张"+url);
         ImageLoader.build(url)
-//                .defaultPicture(R.drawable.contactlogo)
+                .defaultPicture(R.drawable.contactlogo)
                 .imageView(imageView)
                 .showImage(context);
     }

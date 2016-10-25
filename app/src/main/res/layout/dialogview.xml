@@ -8,6 +8,6 @@
         android:id="@+id/dialog_ed"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="张"
+        android:text="妈妈说名字越长越帅越牛犇"
         />
 </LinearLayout>

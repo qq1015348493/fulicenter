@@ -97,22 +97,22 @@ public class NetDao {
                 .execute(listener);
     }
 
-    public static void updateNick(Context context,String muserName, String input,OkHttpUtils.OnCompleteListener<Result>listener) {
-        OkHttpUtils<Result> utils = new OkHttpUtils<>(context);
+    public static void updateNick(Context context,String muserName, String input,OkHttpUtils.OnCompleteListener<String>listener) {
+        OkHttpUtils<String> utils = new OkHttpUtils<>(context);
         utils.setRequestUrl(I.REQUEST_UPDATE_USER_NICK)
                 .addParam(I.User.USER_NAME,muserName)
                 .addParam(I.User.NICK,input)
-                .targetClass(Result.class)
+                .targetClass(String.class)
                 .execute(listener);
     }
 
-    public static void updateAvatar(Context context,String username, File file,OkHttpUtils.OnCompleteListener<Result>listener) {
-        OkHttpUtils<Result> utils = new OkHttpUtils<>(context);
+    public static void updateAvatar(Context context,String username, File file,OkHttpUtils.OnCompleteListener<String>listener) {
+        OkHttpUtils<String> utils = new OkHttpUtils<>(context);
         utils.setRequestUrl(I.REQUEST_UPDATE_AVATAR)
                 .addParam(I.NAME_OR_HXID,username)
                 .addParam(I.AVATAR_TYPE,"user_avatar")
-                .targetClass(Result.class)
-                .addFile(file)
+                .addFile2(file)
+                .targetClass(String.class)
                 .post()
                 .execute(listener);
     }
