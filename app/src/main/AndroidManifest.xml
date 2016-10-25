@@ -31,6 +31,8 @@
         </activity>
         <activity android:name=".activity.Register">
         </activity>
+        <activity android:name=".activity.Intercalate"/>
+        <activity android:name=".activity.Personal_Data"/>
     </application>
 
 </manifest>

@@ -172,9 +172,10 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         if (FuLiCenterApplication.getUser() != null) {
             index = 4;
+        }else {
+            index=0;
         }
         setFragment();
-
     }
 
     @Override

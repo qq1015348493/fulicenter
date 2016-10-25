@@ -34,6 +34,7 @@
             </RelativeLayout>
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/personal_data_L"
             android:gravity="center_vertical"
             android:layout_marginTop="10dp"
             android:layout_width="match_parent"

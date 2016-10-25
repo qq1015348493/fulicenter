@@ -1,7 +1,6 @@
 package cn.ucai.fulicenter.fragment;
 
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -13,10 +12,13 @@ import android.widget.TextView;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import cn.ucai.fulicenter.Bean.UserAvatar;
 import cn.ucai.fulicenter.R;
+import cn.ucai.fulicenter.activity.Intercalate;
 import cn.ucai.fulicenter.activity.Login;
 import cn.ucai.fulicenter.activity.MainActivity;
+import cn.ucai.fulicenter.activity.Personal_Data;
 import cn.ucai.fulicenter.utils.FuLiCenterApplication;
 import cn.ucai.fulicenter.utils.ImageLoader;
 import cn.ucai.fulicenter.utils.MFGT;
@@ -63,7 +65,7 @@ public class Personal extends Fragment {
     TextView VIPCD;
     MainActivity mcontext;
     UserAvatar user;
-    
+
     public Personal() {
         // Required empty public constructor
     }
@@ -83,10 +85,10 @@ public class Personal extends Fragment {
 
     private void initData() {
         user = FuLiCenterApplication.getUser();
-        if(user==null){
-            MFGT.startActivity(mcontext,Login.class);
-        }else {
-            ImageLoader.setAvatar(ImageLoader.getAvatarUrl(user),mcontext,personalIv);
+        if (user == null) {
+            MFGT.startActivity(mcontext, Login.class);
+        } else {
+            ImageLoader.setAvatar(ImageLoader.getAvatarUrl(user), mcontext, personalIv);
             personalNick.setText(user.getMuserNick());
         }
 
@@ -101,5 +103,24 @@ public class Personal extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
+    }
+
+    @OnClick({R.id.shezhi, R.id.personal_iv,R.id.personal_data_L})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.shezhi:
+                MFGT.startActivity(mcontext, Intercalate.class);
+                break;
+            case R.id.personal_iv:
+                break;
+            case R.id.personal_data_L:
+                MFGT.startActivity(mcontext, Personal_Data.class);
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        initData();
     }
 }

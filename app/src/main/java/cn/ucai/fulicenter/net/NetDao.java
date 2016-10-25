@@ -93,4 +93,13 @@ public class NetDao {
                 .post()
                 .execute(listener);
     }
+
+    public static void updateNick(Context context,String muserName, String input,OkHttpUtils.OnCompleteListener<Result>listener) {
+        OkHttpUtils<Result> utils = new OkHttpUtils<>(context);
+        utils.setRequestUrl(I.REQUEST_UPDATE_USER_NICK)
+                .addParam(I.User.USER_NAME,muserName)
+                .addParam(I.User.NICK,input)
+                .targetClass(Result.class)
+                .execute(listener);
+    }
 }
