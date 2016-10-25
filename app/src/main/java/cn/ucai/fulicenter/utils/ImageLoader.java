@@ -366,8 +366,9 @@ public class ImageLoader {
         return url;
     }
     public static void setAvatar(String url,Context context,ImageView imageView){
+        L.i("张"+url);
         ImageLoader.build(url)
-                .defaultPicture(R.drawable.contactlogo)
+//                .defaultPicture(R.drawable.contactlogo)
                 .imageView(imageView)
                 .showImage(context);
     }

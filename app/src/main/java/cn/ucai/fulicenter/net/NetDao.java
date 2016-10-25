@@ -1,7 +1,9 @@
 package cn.ucai.fulicenter.net;
 
 import android.content.Context;
+import android.provider.MediaStore;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import cn.ucai.fulicenter.Bean.BoutiqueBean;
@@ -11,6 +13,7 @@ import cn.ucai.fulicenter.Bean.NewGoodsBean;
 import cn.ucai.fulicenter.Bean.Result;
 import cn.ucai.fulicenter.I;
 import cn.ucai.fulicenter.activity.CategoryGoods;
+import cn.ucai.fulicenter.activity.Personal_Data;
 import cn.ucai.fulicenter.activity.Register;
 import cn.ucai.fulicenter.utils.MD5;
 import cn.ucai.fulicenter.utils.OkHttpUtils;
@@ -102,4 +105,17 @@ public class NetDao {
                 .targetClass(Result.class)
                 .execute(listener);
     }
+
+    public static void updateAvatar(Context context,String username, File file,OkHttpUtils.OnCompleteListener<Result>listener) {
+        OkHttpUtils<Result> utils = new OkHttpUtils<>(context);
+        utils.setRequestUrl(I.REQUEST_UPDATE_AVATAR)
+                .addParam(I.NAME_OR_HXID,username)
+                .addParam(I.AVATAR_TYPE,"user_avatar")
+                .targetClass(Result.class)
+                .addFile(file)
+                .post()
+                .execute(listener);
+    }
+
+
 }

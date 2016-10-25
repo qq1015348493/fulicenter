@@ -324,7 +324,6 @@ public interface I {
     int MSG_LOCATION_UPDATE_FAIL=504;//用户更新地理位置失败
     int MSG_UNKNOW=999;//未知错误
     int MSG_ILLEGAL_REQUEST=-1;    //非法请求
-
     /** 上传头像图片的类型：user_avatar或group_icon */
     String AVATAR_TYPE = "avatarType";
     String AVATAR_SUFFIX = "m_avatar_suffix";
