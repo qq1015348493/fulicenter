@@ -93,7 +93,8 @@ public class Login extends AppCompatActivity {
                                         if (isSuccess) {
                                             SharePrefrenceUtils.getInstance(Login.this).saveUser(user.getMuserName());
                                             FuLiCenterApplication.setUser(user);
-                                            MFGT.finish(Login.this);
+                                            setResult(I.REQUEST_CODE_LOGIN);
+                                            finish();
                                         } else {
                                             CommonUtils.showShortToast(R.string.user_database_error);
                                         }

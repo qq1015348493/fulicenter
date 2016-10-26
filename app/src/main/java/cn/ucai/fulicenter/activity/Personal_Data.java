@@ -93,12 +93,15 @@ public class Personal_Data extends AppCompatActivity {
     private void initView() {
     }
 
-    @OnClick({R.id.personal_data_back, R.id.personal_data_iv_R, R.id.personal_data_nick_R, R.id.personal_data_username_R})
+    @OnClick({R.id.personal_data_back, R.id.personal_data_iv_R, R.id.personal_data_nick_R,
+            R.id.Exit_login,R.id.personal_data_username_R})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.personal_data_back:
                 finish();
                 break;
+            case R.id.Exit_login:
+                logout();
             case R.id.personal_data_iv_R:
                 String type = "user_avatar";
                 setAvatar = new OnSetAvatarListener(mcontext,R.id.personal_data_linearlayout,user.getMuserName(),type);
@@ -127,6 +130,14 @@ public class Personal_Data extends AppCompatActivity {
         }
     }
 
+    private void logout() {
+        if(user!=null){
+            SharePrefrenceUtils.getInstance(mcontext).removeUser();
+            FuLiCenterApplication.setUser(null);
+            MFGT.startActivity(mcontext,Login.class);
+        }
+        finish();
+    }
 
     private void updateNick(String input) {
         NetDao.updateNick(mcontext, user.getMuserName(), input, new OkHttpUtils.OnCompleteListener<String>() {

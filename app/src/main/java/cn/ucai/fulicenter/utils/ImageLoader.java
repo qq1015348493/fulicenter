@@ -370,7 +370,6 @@ public class ImageLoader {
                     + "=" + user.getMavatarSuffix() + I.AND + "width=200&height=200"+"&"
                     +user.getMavatarLastUpdateTime();
 
-            L.i("-----"+url);
             return url;
 
         }

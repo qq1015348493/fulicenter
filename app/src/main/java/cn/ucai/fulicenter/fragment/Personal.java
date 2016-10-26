@@ -13,16 +13,20 @@ import android.widget.TextView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.ucai.fulicenter.Bean.Result;
 import cn.ucai.fulicenter.Bean.UserAvatar;
 import cn.ucai.fulicenter.R;
-import cn.ucai.fulicenter.activity.Intercalate;
 import cn.ucai.fulicenter.activity.Login;
 import cn.ucai.fulicenter.activity.MainActivity;
 import cn.ucai.fulicenter.activity.Personal_Data;
+import cn.ucai.fulicenter.dao.UserDao;
+import cn.ucai.fulicenter.net.NetDao;
+import cn.ucai.fulicenter.utils.CommonUtils;
 import cn.ucai.fulicenter.utils.FuLiCenterApplication;
 import cn.ucai.fulicenter.utils.ImageLoader;
-import cn.ucai.fulicenter.utils.L;
 import cn.ucai.fulicenter.utils.MFGT;
+import cn.ucai.fulicenter.utils.OkHttpUtils;
+import cn.ucai.fulicenter.utils.ResultUtils;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -91,6 +95,7 @@ public class Personal extends Fragment {
         } else {
             ImageLoader.setAvatar(ImageLoader.getAvatarUrl(user), mcontext, personalIv);
             personalNick.setText(user.getMuserNick());
+            syncUser();
         }
 
     }
@@ -110,7 +115,7 @@ public class Personal extends Fragment {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.shezhi:
-                MFGT.startActivity(mcontext, Intercalate.class);
+                MFGT.startActivity(mcontext, Personal_Data.class);
                 break;
             case R.id.personal_iv:
                 break;
@@ -123,5 +128,32 @@ public class Personal extends Fragment {
     public void onResume() {
         super.onResume();
         initData();
+    }
+
+    public void syncUser(){
+        NetDao.syncUser(mcontext, user.getMuserName(), new OkHttpUtils.OnCompleteListener<String>() {
+            @Override
+            public void onSuccess(String s) {
+                Result result = ResultUtils.getResultFromJson(s,UserAvatar.class);
+                UserAvatar u = (UserAvatar) result.getRetData();
+                if(!u.equals(user)){
+                    UserDao dao = new UserDao(mcontext);
+                    boolean b = dao.saveUser(u);
+                    if(b){
+                        FuLiCenterApplication.setUser(u);
+                        user = u;
+                        ImageLoader.setAvatar(ImageLoader.getAvatarUrl(user), mcontext, personalIv);
+                        personalNick.setText(user.getMuserNick());
+                    }else {
+                        CommonUtils.showShortToast("保存数据失败");
+                    }
+                }
+            }
+
+            @Override
+            public void onError(String error) {
+
+            }
+        });
     }
 }

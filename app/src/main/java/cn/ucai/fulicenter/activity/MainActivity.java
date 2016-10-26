@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -95,7 +96,6 @@ public class MainActivity extends AppCompatActivity {
                 .add(R.id.fragment, goodsFragment)
                 .add(R.id.fragment, categoryFragment)
                 .add(R.id.fragment, cartFragment)
-                .add(R.id.fragment, personFragment)
                 .hide(boutiqueFragment)
                 .hide(categoryFragment)
                 .hide(cartFragment)
@@ -150,16 +150,17 @@ public class MainActivity extends AppCompatActivity {
 
                 break;
         }
-        setRadioButtonStatus();
         setFragment();
     }
 
     private void setFragment() {
+        L.i("currentIndex:"+currentIndex);
+        L.i("index:"+index);
         if (index != currentIndex) {
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.hide(mFragment[currentIndex]);
             if (!mFragment[index].isAdded()) {
-                ft.add(R.id.fragment, mFragment[index]);
+                ft.replace(R.id.fragment, mFragment[index]);
             }
             ft.show(mFragment[index]).commit();
         }
@@ -170,19 +171,28 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (FuLiCenterApplication.getUser() != null) {
+        /*if (FuLiCenterApplication.getUser() != null) {
             index = 4;
         }else {
-            index=1;
-        }
+            index=0;
+        }*/
         setFragment();
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        L.i("requestCode"+resultCode);
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == I.REQUEST_CODE_LOGIN && FuLiCenterApplication.getUser() != null) {
+        if (resultCode == I.REQUEST_CODE_LOGIN && FuLiCenterApplication.getUser() != null) {
             index = 4;
+        }else {
+            if(currentIndex==4){
+                index=0;
+            }else {
+                index = currentIndex;
+            }
+
         }
+        setFragment();
     }
 }
