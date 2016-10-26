@@ -115,7 +115,7 @@ public class Goods_Details extends AppCompatActivity {
                                 int input = Integer.valueOf(ed.getText().toString());
                                 addCart(input);
                             }
-                        }).setPositiveButton("取消",null).create().show();
+                        }).setNegativeButton("取消",null).create().show();
                 break;
             case R.id.goods_collect:
                 if(FuLiCenterApplication.getUser()==null){
