@@ -12,7 +12,6 @@
         android:layout_height="250dp"
         android:scaleType="fitXY"
         android:layout_gravity="center"
-        android:layout_weight="0.42"
         android:src="@drawable/nopic"/>
     <TextView
         android:id="@+id/goodname"

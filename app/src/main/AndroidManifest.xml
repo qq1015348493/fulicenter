@@ -31,8 +31,11 @@
         </activity>
         <activity android:name=".activity.Register">
         </activity>
-        <activity android:name=".activity.Intercalate"/>
         <activity android:name=".activity.Personal_Data"/>
+        <activity android:name=".activity.Collection"></activity>
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
     </application>
 
 </manifest>
