@@ -125,4 +125,8 @@ public class Login extends AppCompatActivity {
                 break;
         }
     }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
 }

@@ -102,8 +102,8 @@ public class Personal extends Fragment {
             ImageLoader.setAvatar(ImageLoader.getAvatarUrl(user), mcontext, personalIv);
             personalNick.setText(user.getMuserNick());
             syncUser();
+            getCollectionCount();
         }
-        getCollectionCount();
     }
 
     private void initView() {
@@ -122,7 +122,6 @@ public class Personal extends Fragment {
         switch (view.getId()) {
             case R.id.shezhi:
                 MFGT.startActivity(mcontext, Personal_Data.class);
-                MFGT.finish(mcontext);
                 break;
             case R.id.personal_iv:
                 break;
