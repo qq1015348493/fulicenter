@@ -154,6 +154,7 @@ public class Personal_Data extends AppCompatActivity {
                         if(isSuccess){
                             FuLiCenterApplication.setUser(u);
                             setResult(RESULT_OK);
+                            MFGT.gotoMainActivity(mcontext);
                             MFGT.finish(mcontext);
                         }else {
                             CommonUtils.showShortToast("跟新失败");
@@ -206,6 +207,7 @@ public class Personal_Data extends AppCompatActivity {
                         if(isSuccess){
                             FuLiCenterApplication.setUser(u);
                             setResult(RESULT_OK);
+                            MFGT.gotoMainActivity(mcontext);
                             MFGT.finish(mcontext);
                         }else {
                             CommonUtils.showShortToast("跟新失败");
@@ -225,7 +227,6 @@ public class Personal_Data extends AppCompatActivity {
 
             @Override
             public void onError(String error) {
-
             }
         });
     }

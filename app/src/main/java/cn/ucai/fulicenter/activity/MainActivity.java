@@ -154,8 +154,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setFragment() {
-        L.i("currentIndex:"+currentIndex);
-        L.i("index:"+index);
         if (index != currentIndex) {
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.hide(mFragment[currentIndex]);
@@ -181,7 +179,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        L.i("requestCode"+resultCode);
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == I.REQUEST_CODE_LOGIN && FuLiCenterApplication.getUser() != null) {
             index = 4;
