@@ -1,5 +1,6 @@
 package cn.ucai.fulicenter.activity;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.ContentValues;
 import android.content.Context;
@@ -27,6 +28,7 @@ import cn.ucai.fulicenter.utils.CommonUtils;
 import cn.ucai.fulicenter.utils.ConvertUtils;
 import cn.ucai.fulicenter.utils.FuLiCenterApplication;
 import cn.ucai.fulicenter.utils.L;
+import cn.ucai.fulicenter.utils.MFGT;
 import cn.ucai.fulicenter.utils.OkHttpUtils;
 import cn.ucai.fulicenter.views.FlowIndicator;
 import cn.ucai.fulicenter.views.SlideAutoLoopView;
@@ -58,7 +60,6 @@ public class Goods_Details extends AppCompatActivity {
     FlowIndicator flowindicator;
     @Bind(R.id.Goods_explain)
     EditText GoodsExplain;
-
     boolean collect = false;
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -117,34 +118,39 @@ public class Goods_Details extends AppCompatActivity {
                         }).setPositiveButton("取消",null).create().show();
                 break;
             case R.id.goods_collect:
-                if(!collect){
-                    NetDao.CollectGoods(context, goodsId, user.getMuserName(), new OkHttpUtils.OnCompleteListener<MessageBean>() {
-                        @Override
-                        public void onSuccess(MessageBean result) {
-                            CommonUtils.showShortToast(result.getMsg());
-                            goodsCollect.setImageResource(R.mipmap.bg_collect_out);
-                            collect=!collect;
-                        }
-
-                        @Override
-                        public void onError(String error) {
-
-                        }
-                    });
+                if(FuLiCenterApplication.getUser()==null){
+                    MFGT.gotoLogin((Activity) context);
                 }else {
-                    NetDao.deleteCollect(context, goodsId, user.getMuserName(), new OkHttpUtils.OnCompleteListener<MessageBean>() {
-                        @Override
-                        public void onSuccess(MessageBean result) {
-                            CommonUtils.showShortToast(result.getMsg());
-                            goodsCollect.setImageResource(R.mipmap.bg_collect_in);
-                            collect=!collect;
-                        }
+                    if(!collect){
+                        NetDao.CollectGoods(context, goodsId, user.getMuserName(), new OkHttpUtils.OnCompleteListener<MessageBean>() {
+                            @Override
+                            public void onSuccess(MessageBean result) {
+                                CommonUtils.showShortToast(result.getMsg());
+                                goodsCollect.setImageResource(R.mipmap.bg_collect_out);
+                                collect=!collect;
+                            }
 
-                        @Override
-                        public void onError(String error) {
+                            @Override
+                            public void onError(String error) {
 
-                        }
-                    });
+                            }
+                        });
+                    }else {
+                        NetDao.deleteCollect(context, goodsId, user.getMuserName(), new OkHttpUtils.OnCompleteListener<MessageBean>() {
+                            @Override
+                            public void onSuccess(MessageBean result) {
+                                CommonUtils.showShortToast(result.getMsg());
+                                goodsCollect.setImageResource(R.mipmap.bg_collect_in);
+                                collect=!collect;
+                            }
+
+                            @Override
+                            public void onError(String error) {
+
+                            }
+                        });
+                     }
+
                 }
                 break;
             case R.id.goods_share:
@@ -169,7 +175,9 @@ public class Goods_Details extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        isCollect();
+        if(user!=null){
+            isCollect();
+        }
     }
 
     public void isCollect() {
