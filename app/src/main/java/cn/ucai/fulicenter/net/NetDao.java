@@ -9,10 +9,13 @@ import java.util.ArrayList;
 import cn.ucai.fulicenter.Bean.BoutiqueBean;
 import cn.ucai.fulicenter.Bean.CategoryChildBean;
 import cn.ucai.fulicenter.Bean.CategoryGroupBean;
+import cn.ucai.fulicenter.Bean.CollectBean;
+import cn.ucai.fulicenter.Bean.MessageBean;
 import cn.ucai.fulicenter.Bean.NewGoodsBean;
 import cn.ucai.fulicenter.Bean.Result;
 import cn.ucai.fulicenter.I;
 import cn.ucai.fulicenter.activity.CategoryGoods;
+import cn.ucai.fulicenter.activity.MainActivity;
 import cn.ucai.fulicenter.activity.Personal_Data;
 import cn.ucai.fulicenter.activity.Register;
 import cn.ucai.fulicenter.utils.MD5;
@@ -125,4 +128,23 @@ public class NetDao {
                 .execute(listener);
     }
 
+    public static void downloadCollection(Context context, String muserName, int pageid, OkHttpUtils.OnCompleteListener<CollectBean[]> listener) {
+        OkHttpUtils<CollectBean[]> utils = new OkHttpUtils<>(context);
+        utils.setRequestUrl(I.REQUEST_FIND_COLLECTS)
+                .addParam(I.Collect.USER_NAME,muserName)
+                .addParam(I.PAGE_ID,pageid+"")
+                .addParam(I.PAGE_SIZE,I.PAGE_SIZE_DEFAULT+"")
+                .targetClass(CollectBean[].class)
+                .execute(listener);
+
+    }
+
+    public static void getCollectionCount(Context context, String muserName, OkHttpUtils.OnCompleteListener<MessageBean> listener) {
+        OkHttpUtils<MessageBean> utils = new OkHttpUtils<>(context);
+        utils.setRequestUrl(I.REQUEST_FIND_COLLECT_COUNT)
+                .addParam(I.Collect.USER_NAME,muserName)
+                .targetClass(MessageBean.class)
+                .execute(listener);
+
+    }
 }

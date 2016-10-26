@@ -8,14 +8,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.ucai.fulicenter.Bean.MessageBean;
 import cn.ucai.fulicenter.Bean.Result;
 import cn.ucai.fulicenter.Bean.UserAvatar;
 import cn.ucai.fulicenter.R;
+import cn.ucai.fulicenter.activity.Collection;
 import cn.ucai.fulicenter.activity.Login;
 import cn.ucai.fulicenter.activity.MainActivity;
 import cn.ucai.fulicenter.activity.Personal_Data;
@@ -32,6 +35,7 @@ import cn.ucai.fulicenter.utils.ResultUtils;
  * A simple {@link Fragment} subclass.
  */
 public class Personal extends Fragment {
+
 
 
     @Bind(R.id.shezhi)
@@ -68,6 +72,8 @@ public class Personal extends Fragment {
     TextView textView2;
     @Bind(R.id.VIP_CD)
     TextView VIPCD;
+    @Bind(R.id.personal_collection)
+    LinearLayout Collection;
     MainActivity mcontext;
     UserAvatar user;
 
@@ -97,7 +103,7 @@ public class Personal extends Fragment {
             personalNick.setText(user.getMuserNick());
             syncUser();
         }
-
+        getCollectionCount();
     }
 
     private void initView() {
@@ -111,16 +117,20 @@ public class Personal extends Fragment {
         ButterKnife.unbind(this);
     }
 
-    @OnClick({R.id.shezhi, R.id.personal_iv,R.id.personal_data_L})
+    @OnClick({R.id.shezhi, R.id.personal_iv,R.id.personal_data_L,R.id.personal_collection})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.shezhi:
                 MFGT.startActivity(mcontext, Personal_Data.class);
+                MFGT.finish(mcontext);
                 break;
             case R.id.personal_iv:
                 break;
             case R.id.personal_data_L:
                 MFGT.startActivity(mcontext, Personal_Data.class);
+                break;
+            case R.id.personal_collection:
+                MFGT.startActivity(mcontext,Collection.class);
         }
     }
 
@@ -146,6 +156,24 @@ public class Personal extends Fragment {
                         personalNick.setText(user.getMuserNick());
                     }else {
                         CommonUtils.showShortToast("保存数据失败");
+                    }
+                }
+            }
+
+            @Override
+            public void onError(String error) {
+
+            }
+        });
+    }
+
+    public void getCollectionCount() {
+        NetDao.getCollectionCount(mcontext, user.getMuserName(), new OkHttpUtils.OnCompleteListener<MessageBean>() {
+            @Override
+            public void onSuccess(MessageBean result) {
+                if(result!=null){
+                    if(result.isSuccess()){
+                        collectionGoods.setText(result.getMsg());
                     }
                 }
             }
