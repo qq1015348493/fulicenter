@@ -28,6 +28,7 @@ import cn.ucai.fulicenter.I;
 import cn.ucai.fulicenter.R;
 import cn.ucai.fulicenter.dao.SharePrefrenceUtils;
 import cn.ucai.fulicenter.dao.UserDao;
+import cn.ucai.fulicenter.fragment.Personal;
 import cn.ucai.fulicenter.net.NetDao;
 import cn.ucai.fulicenter.utils.CommonUtils;
 import cn.ucai.fulicenter.utils.FuLiCenterApplication;
@@ -102,6 +103,7 @@ public class Personal_Data extends AppCompatActivity {
                 break;
             case R.id.Exit_login:
                 logout();
+                break;
             case R.id.personal_data_iv_R:
                 String type = "user_avatar";
                 setAvatar = new OnSetAvatarListener(mcontext,R.id.personal_data_linearlayout,user.getMuserName(),type);
