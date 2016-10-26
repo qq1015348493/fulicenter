@@ -156,4 +156,34 @@ public class NetDao {
                 .targetClass(MessageBean.class)
                 .execute(listener);
     }
+
+    public static void CollectGoods(Context context, int goodsId, String muserName,OkHttpUtils.OnCompleteListener<MessageBean> listener) {
+        OkHttpUtils<MessageBean> utils = new OkHttpUtils<>(context);
+        utils.setRequestUrl(I.REQUEST_ADD_COLLECT)
+                .addParam(I.Collect.GOODS_ID,goodsId+"")
+                .addParam(I.Collect.USER_NAME,muserName)
+                .targetClass(MessageBean.class)
+                .execute(listener);
+    }
+
+    public static void isCollect(Context context, int goodsId, String muserName,OkHttpUtils.OnCompleteListener<MessageBean> listener) {
+        OkHttpUtils<MessageBean> utils = new OkHttpUtils<>(context);
+        utils.setRequestUrl(I.REQUEST_IS_COLLECT)
+                .addParam(I.Collect.GOODS_ID,goodsId+"")
+                .addParam(I.Collect.USER_NAME,muserName)
+                .targetClass(MessageBean.class)
+                .execute(listener);
+
+    }
+
+    public static void addCart(Context context, int goodsId, String muserName, int input,OkHttpUtils.OnCompleteListener<MessageBean> listener) {
+        OkHttpUtils<MessageBean> utils = new OkHttpUtils<>(context);
+        utils.setRequestUrl(I.REQUEST_ADD_CART)
+                .addParam(I.Cart.GOODS_ID,goodsId+"")
+                .addParam(I.Cart.USER_NAME,muserName)
+                .addParam(I.Cart.COUNT,input+"")
+                .addParam(I.Cart.IS_CHECKED,"true")
+                .targetClass(MessageBean.class)
+                .execute(listener);
+    }
 }

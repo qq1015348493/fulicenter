@@ -254,4 +254,10 @@ public class Collection extends AppCompatActivity {
             notifyDataSetChanged();
         }
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        initView();
+    }
 }
