@@ -94,7 +94,7 @@ public class Cart extends Fragment {
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
                 mNewState = newState;
-                if (newState == RecyclerView.SCROLL_STATE_IDLE ) {
+                if (newState == RecyclerView.SCROLL_STATE_IDLE && lastPosition >= adapter.getItemCount()) {
                     //滚动结且列表已到最底部且还有更多数据可加载
                     mPageId++;
                     //下载下一页的数据
