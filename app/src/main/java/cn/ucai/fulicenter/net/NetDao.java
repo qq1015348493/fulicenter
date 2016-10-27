@@ -7,6 +7,7 @@ import java.io.File;
 import java.util.ArrayList;
 
 import cn.ucai.fulicenter.Bean.BoutiqueBean;
+import cn.ucai.fulicenter.Bean.CartBean;
 import cn.ucai.fulicenter.Bean.CategoryChildBean;
 import cn.ucai.fulicenter.Bean.CategoryGroupBean;
 import cn.ucai.fulicenter.Bean.CollectBean;
@@ -18,6 +19,7 @@ import cn.ucai.fulicenter.activity.CategoryGoods;
 import cn.ucai.fulicenter.activity.MainActivity;
 import cn.ucai.fulicenter.activity.Personal_Data;
 import cn.ucai.fulicenter.activity.Register;
+import cn.ucai.fulicenter.fragment.Cart;
 import cn.ucai.fulicenter.utils.MD5;
 import cn.ucai.fulicenter.utils.OkHttpUtils;
 
@@ -183,6 +185,34 @@ public class NetDao {
                 .addParam(I.Cart.USER_NAME,muserName)
                 .addParam(I.Cart.COUNT,input+"")
                 .addParam(I.Cart.IS_CHECKED,"true")
+                .targetClass(MessageBean.class)
+                .execute(listener);
+    }
+
+    public static void downloadcart(MainActivity context, String muserName, int mPageId,OkHttpUtils.OnCompleteListener<CartBean[]> listener) {
+        OkHttpUtils<CartBean[]> utils = new OkHttpUtils<>(context);
+        utils.setRequestUrl(I.REQUEST_FIND_CARTS)
+                .addParam(I.Cart.USER_NAME,muserName)
+                .addParam(I.PAGE_ID,mPageId+"")
+                .addParam(I.PAGE_SIZE,I.PAGE_SIZE_DEFAULT+"")
+                .targetClass(CartBean[].class)
+                .execute(listener);
+    }
+
+    public static void deleteCart(Context context, int goodsid,OkHttpUtils.OnCompleteListener<MessageBean> listener) {
+        OkHttpUtils<MessageBean> utils = new OkHttpUtils<>(context);
+        utils.setRequestUrl(I.REQUEST_DELETE_CART)
+                .addParam(I.Cart.GOODS_ID,goodsid+"")
+                .targetClass(MessageBean.class)
+                .execute(listener);
+    }
+
+    public static void updateCart(Context context, int goodsid, int count,OkHttpUtils.OnCompleteListener<MessageBean> listener) {
+        OkHttpUtils<MessageBean> utils = new OkHttpUtils<>(context);
+        utils.setRequestUrl(I.REQUEST_UPDATE_CART)
+                .addParam(I.Cart.ID,goodsid+"")
+                .addParam(I.Cart.COUNT,count+"")
+                .addParam(I.Cart.IS_CHECKED,true+"")
                 .targetClass(MessageBean.class)
                 .execute(listener);
     }
