@@ -33,6 +33,7 @@ import cn.ucai.fulicenter.activity.MainActivity;
 import cn.ucai.fulicenter.adapter.CartAdapter;
 import cn.ucai.fulicenter.adapter.NewGoodsAdapter;
 import cn.ucai.fulicenter.net.NetDao;
+import cn.ucai.fulicenter.utils.CommonUtils;
 import cn.ucai.fulicenter.utils.ConvertUtils;
 import cn.ucai.fulicenter.utils.FuLiCenterApplication;
 import cn.ucai.fulicenter.utils.L;
@@ -57,6 +58,7 @@ public class Cart extends Fragment {
     SwipeRefreshLayout SwipeRefreshLayout;
 
     int lenth;
+    String cartIds = null;
 
     UserAvatar user;
     ArrayList<CartBean> mList  ;
@@ -98,13 +100,16 @@ public class Cart extends Fragment {
     }
 
     private void SumPrice() {
+        cartIds = null;
         int SumPrice = 0;
         int savPrice = 0;
         if(mList!=null&&mList.size()>0){
             for(CartBean c : mList){
                 if(c.isChecked()){
+                    cartIds+=c.getId()+",";
                     SumPrice+=getPrice(c.getGoods().getCurrencyPrice())*c.getCount();
                     savPrice+=getPrice(c.getGoods().getRankPrice())*c.getCount();
+
                 }
             }
             allprice.setText("原价  ￥"+Double.valueOf(SumPrice));
@@ -113,6 +118,7 @@ public class Cart extends Fragment {
             allprice.setText("￥0");
             save.setText("￥0");
         }
+
     }
 
     private int getPrice(String price) {
@@ -164,11 +170,11 @@ public class Cart extends Fragment {
                     ArrayList<CartBean> list = ConvertUtils.array2List(result);
                     lenth = list.size();
                     if(action==I.ACTION_DOWNLOAD||action==I.ACTION_PULL_DOWN){
+                        mList.clear();
                         mList.addAll(list);
                         adapter.initData(list);
                         mcontext.sendBroadcast(new Intent(I.BROADCAST_UPDATA_CART));
                     }
-                }else {
                 }
 
             }
@@ -196,7 +202,11 @@ public class Cart extends Fragment {
 
     @OnClick(R.id.buy)
     public void onClick() {
-
+        if(cartIds!=null){
+            MFGT.goBuy(mcontext,cartIds);
+        }else {
+            CommonUtils.showShortToast("没有选择商品");
+        }
     }
     class MyBroadcast extends BroadcastReceiver{
 

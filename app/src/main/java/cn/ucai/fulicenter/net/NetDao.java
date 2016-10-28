@@ -189,7 +189,7 @@ public class NetDao {
                 .execute(listener);
     }
 
-    public static void downloadcart(MainActivity context, String muserName,OkHttpUtils.OnCompleteListener<CartBean[]> listener) {
+    public static void downloadcart(Context context, String muserName,OkHttpUtils.OnCompleteListener<CartBean[]> listener) {
         OkHttpUtils<CartBean[]> utils = new OkHttpUtils<>(context);
         utils.setRequestUrl(I.REQUEST_FIND_CARTS)
                 .addParam(I.Cart.USER_NAME,muserName)

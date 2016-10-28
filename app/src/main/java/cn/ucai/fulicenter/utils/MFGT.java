@@ -14,6 +14,7 @@ import cn.ucai.fulicenter.activity.CategoryGoods;
 import cn.ucai.fulicenter.activity.Goods_Details;
 import cn.ucai.fulicenter.activity.Login;
 import cn.ucai.fulicenter.activity.MainActivity;
+import cn.ucai.fulicenter.activity.Order;
 
 
 public class MFGT {
@@ -65,5 +66,8 @@ public class MFGT {
         startActivity(context,intent);
     }
 
-
+    public static void goBuy(Activity context,String cartIds){
+        Intent intent = new Intent(context, Order.class).putExtra(I.Cart.ID,cartIds);
+        startActivity(context,intent);
+    }
 }
