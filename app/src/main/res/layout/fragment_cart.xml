@@ -20,7 +20,6 @@
                 android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="购物车空空如也"
                 android:textSize="30dp"
                 android:visibility="gone"
                 />
@@ -32,12 +31,15 @@
         </LinearLayout>
 
     </android.support.v4.widget.SwipeRefreshLayout>
+
     <RelativeLayout
         android:id="@+id/heji"
-        android:layout_alignParentBottom="true"
         android:background="#fff"
         android:layout_width="match_parent"
-        android:layout_height="60dp">
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
         <TextView
             android:id="@+id/buy"
             android:background="#FF5300"

@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.os.SystemClock;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
@@ -34,6 +36,7 @@ import cn.ucai.fulicenter.net.NetDao;
 import cn.ucai.fulicenter.utils.ConvertUtils;
 import cn.ucai.fulicenter.utils.FuLiCenterApplication;
 import cn.ucai.fulicenter.utils.L;
+import cn.ucai.fulicenter.utils.MFGT;
 import cn.ucai.fulicenter.utils.OkHttpUtils;
 import cn.ucai.fulicenter.views.SpaceItemDecoration;
 
@@ -53,11 +56,12 @@ public class Cart extends Fragment {
     @Bind(R.id.cart_SwipeRefreshLayout)
     SwipeRefreshLayout SwipeRefreshLayout;
 
+    int lenth;
+
     UserAvatar user;
     ArrayList<CartBean> mList  ;
     CartAdapter adapter;
     LinearLayoutManager manager;
-    int mNewState;
     MainActivity mcontext;
     MyBroadcast broadcast;
 
@@ -73,11 +77,17 @@ public class Cart extends Fragment {
         ButterKnife.bind(this, view);
         mcontext = (MainActivity) getContext();
         manager = new LinearLayoutManager(mcontext);
-        ifFull(false);
         initView();
         initData();
         setListener();
         return view;
+    }
+
+
+    @Override
+    public void onResume() {
+        initData();
+        super.onResume();
     }
 
     private void setListener() {
@@ -110,19 +120,19 @@ public class Cart extends Fragment {
         return Integer.valueOf(price);
     }
 
-
-    private void ifFull(boolean full) {
+    /*private void ifFull(boolean full) {
         if (full){
-            Full.setVisibility(View.GONE);
-            RecyclerView.setVisibility(View.VISIBLE);
             Heji.setVisibility(View.VISIBLE);
+            RecyclerView.setVisibility(View.VISIBLE);
+            Full.setText("");
+            Full.setVisibility(View.GONE);
         }else {
-            Full.setVisibility(View.VISIBLE);
-            RecyclerView.setVisibility(View.GONE);
             Heji.setVisibility(View.GONE);
+            RecyclerView.setVisibility(View.GONE);
+            Full.setVisibility(View.VISIBLE);
+            Full.setText("购物车空空如也");
         }
-    }
-
+    }*/
     private void setPullDownListener() {
         SwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
         @Override
@@ -137,7 +147,12 @@ public class Cart extends Fragment {
 
 
     private void initData() {
-        DownLoadCart(I.ACTION_DOWNLOAD);
+        if(user==null){
+            MFGT.gotoLogin(mcontext);
+        }else {
+            DownLoadCart(I.ACTION_DOWNLOAD);
+        }
+
     }
 
     private void DownLoadCart(final int action) {
@@ -147,21 +162,19 @@ public class Cart extends Fragment {
                 SwipeRefreshLayout.setRefreshing(false);
                 if(result!=null&&result.length>0){
                     ArrayList<CartBean> list = ConvertUtils.array2List(result);
+                    lenth = list.size();
                     if(action==I.ACTION_DOWNLOAD||action==I.ACTION_PULL_DOWN){
                         mList.addAll(list);
                         adapter.initData(list);
-                        ifFull(true);
                         mcontext.sendBroadcast(new Intent(I.BROADCAST_UPDATA_CART));
                     }
                 }else {
-                    ifFull(false);
                 }
 
             }
 
             @Override
             public void onError(String error) {
-                ifFull(false);
             }
         });
     }
@@ -169,9 +182,8 @@ public class Cart extends Fragment {
     private void initView() {
         mList   = new ArrayList<>();
         adapter = new CartAdapter(mcontext,mList);
-        L.i("manager:"+manager);
-        RecyclerView.setLayoutManager(manager);
         RecyclerView.setAdapter(adapter);
+        RecyclerView.setLayoutManager(manager);
         RecyclerView.addItemDecoration(new SpaceItemDecoration(12));
         RecyclerView.setHasFixedSize(true);
     }

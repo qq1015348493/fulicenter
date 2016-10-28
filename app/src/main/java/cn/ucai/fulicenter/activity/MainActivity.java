@@ -132,12 +132,13 @@ public class MainActivity extends AppCompatActivity{
     }
 
     private void setFragment() {
-        L.i("index"+index);
-        L.i("currentIndex"+currentIndex);
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.fragment,mFragment[index]).show(mFragment[index]).commitAllowingStateLoss();
         setRadioButtonStatus();
         currentIndex = index;
+        if(user!=null){
+            DownLoadCart();
+        }
     }
     private void setRadioButtonStatus() {
         for (int i = 0; i < rbs.length; i++) {
@@ -167,10 +168,11 @@ public class MainActivity extends AppCompatActivity{
             }else {
                 index = currentIndex;
             }
+        }else {
+            DownLoadCart();
         }
         setFragment();
         super.onResume();
-        DownLoadCart();
 }
 
     private void DownLoadCart() {

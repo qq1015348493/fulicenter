@@ -1,5 +1,6 @@
 package cn.ucai.fulicenter.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -27,6 +28,8 @@ import cn.ucai.fulicenter.R;
 import cn.ucai.fulicenter.net.NetDao;
 import cn.ucai.fulicenter.utils.CommonUtils;
 import cn.ucai.fulicenter.utils.ImageLoader;
+import cn.ucai.fulicenter.utils.L;
+import cn.ucai.fulicenter.utils.MFGT;
 import cn.ucai.fulicenter.utils.OkHttpUtils;
 
 /**
@@ -38,26 +41,26 @@ public class CartAdapter extends RecyclerView.Adapter {
     ArrayList<CartBean> mList;
     int goodsid;
     int Count;
-    public CartAdapter(Context context, ArrayList<CartBean> mList) {
+
+    public CartAdapter(Context context, ArrayList<CartBean> List) {
         this.context = context;
-        this.mList = new ArrayList<>();
-        this.mList.addAll(mList);
+        this.mList = List;
     }
 
-    public void initData(ArrayList<CartBean> list){
+    public void initData(ArrayList<CartBean> list) {
         mList.clear();
-        this.mList=list;
+        this.mList = list;
         notifyDataSetChanged();
     }
 
-    public void addData(ArrayList<CartBean> list){
+    public void addData(ArrayList<CartBean> list) {
         this.mList.addAll(list);
         notifyDataSetChanged();
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        RecyclerView.ViewHolder holder = null;
+        RecyclerView.ViewHolder holder;
         LayoutInflater from = LayoutInflater.from(context);
         View layout = from.inflate(R.layout.cart_iteam, parent, false);
         holder = new CartHolder(layout);
@@ -67,29 +70,70 @@ public class CartAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         final CartBean cart = mList.get(position);
-        final CartHolder cartHolder = (CartHolder) holder;
-        if(cart.isChecked()){
+        CartHolder cartHolder = (CartHolder) holder;
+        if (cart.isChecked()) {
             cartHolder.cartChecked.setChecked(true);
         }
-        cartHolder.cartCount.setText(cart.getCount()+"");
+        cartHolder.cartCount.setText(cart.getCount() + "");
         cartHolder.cartName.setText(cart.getGoods().getGoodsName());
         cartHolder.cartPrice.setText(cart.getGoods().getCurrencyPrice());
-        ImageLoader.downloadImg(context,cartHolder.cartIv,cart.getGoods().getGoodsThumb());
+        ImageLoader.downloadImg(context, cartHolder.cartIv, cart.getGoods().getGoodsThumb());
+        cartHolder.cartIv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MFGT.gotoGoodsDetails((Activity) context,cart.getGoodsId());
+            }
+        });
         cartHolder.cartChecked.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 cart.setChecked(isChecked);
                 context.sendBroadcast(new Intent(I.BROADCAST_UPDATA_CART));
-                updateCart(context,cart.getCount(),cart.getId(),cart.isChecked());
+                updateCart(context, cart.getCount(), cart.getId(), cart.isChecked());
             }
         });
     }
+
     @Override
     public int getItemCount() {
-        return mList == null? 0 : mList.size();
+        return mList == null ? 0 : mList.size();
     }
 
-    class CartHolder extends RecyclerView.ViewHolder {
+    private void updateCart(Context context, int count, int goodsid, boolean checked) {
+        NetDao.updateCart(context, goodsid, count, checked, new OkHttpUtils.OnCompleteListener<MessageBean>() {
+            @Override
+            public void onSuccess(MessageBean result) {
+                CommonUtils.showShortToast(result.getMsg());
+
+            }
+
+            @Override
+            public void onError(String error) {
+
+            }
+        });
+    }
+
+    private void deleteCart(final int p, int goodsid) {
+        NetDao.deleteCart(context, goodsid, new OkHttpUtils.OnCompleteListener<MessageBean>() {
+            @Override
+            public void onSuccess(MessageBean result) {
+                CommonUtils.showShortToast(result.getMsg());
+                mList.get(p).setCount(0);
+                mList.remove(p);
+                notifyDataSetChanged();
+                context.sendBroadcast(new Intent(I.BROADCAST_UPDATA_CART));
+
+            }
+
+            @Override
+            public void onError(String error) {
+
+            }
+        });
+    }
+
+    class CartHolder extends RecyclerView.ViewHolder{
         @Bind(R.id.cart_checked)
         CheckBox cartChecked;
         @Bind(R.id.cart_iv)
@@ -100,45 +144,45 @@ public class CartAdapter extends RecyclerView.Adapter {
         ImageView addCount;
         @Bind(R.id.cart_Count)
         TextView cartCount;
-        @Bind(R.id.cart_LinearLayout)
-        LinearLayout LinearLayout;
         @Bind(R.id.delCount)
         ImageView delCount;
         @Bind(R.id.cart_price)
         TextView cartPrice;
+        @Bind(R.id.cart_LinearLayout)
+        LinearLayout LinearLayout;
+
         CartHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
         }
 
-        @OnClick({R.id.addCount,R.id.delCount})
-        public void onClick(View v){
+        @OnClick({R.id.addCount, R.id.delCount})
+        public void onClick(View v) {
             CartBean cartBean = mList.get(getPosition());
-            switch (v.getId()){
+            switch (v.getId()) {
                 case R.id.addCount:
                     goodsid = cartBean.getId();
                     Count = cartBean.getCount();
-                    Count+=1;
+                    Count += 1;
                     cartBean.setCount(Count);
-                    cartCount.setText(Count+"");
+                    cartCount.setText(Count + "");
                     context.sendBroadcast(new Intent(I.BROADCAST_UPDATA_CART));
-                    updateCart(context, Count,goodsid, cartBean.isChecked());
+                    updateCart(context, Count, goodsid, cartBean.isChecked());
                     notifyDataSetChanged();
                     break;
                 case R.id.delCount:
                     goodsid = cartBean.getId();
                     Count = cartBean.getCount();
-                    Count-=1;
+                    Count -= 1;
 
                     cartBean.setCount(Count);
-                    if(Count>0){
+                    if (Count > 0) {
                         context.sendBroadcast(new Intent(I.BROADCAST_UPDATA_CART));
-                        updateCart(context, Count,goodsid, cartBean.isChecked());
+                        updateCart(context, Count, goodsid, cartBean.isChecked());
                         notifyDataSetChanged();
-                    }
-                    else {
+                    } else {
                         context.sendBroadcast(new Intent(I.BROADCAST_UPDATA_CART));
-                        deleteCart(getPosition(),goodsid);
+                        deleteCart(getPosition(), goodsid);
                         notifyDataSetChanged();
                     }
                     break;
@@ -153,44 +197,10 @@ public class CartAdapter extends RecyclerView.Adapter {
             builder.setTitle("是否取消收藏").setPositiveButton("确定", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    deleteCart(getPosition(),goodsid);
+                    deleteCart(getPosition(), goodsid);
                 }
             }).setNegativeButton("取消", null).create().show();
             return true;
         }
     }
-
-    private void updateCart(Context context, int count, int goodsid, boolean checked) {
-        NetDao.updateCart(this.context, goodsid, count,checked,new OkHttpUtils.OnCompleteListener<MessageBean>() {
-            @Override
-            public void onSuccess(MessageBean result) {
-                CommonUtils.showShortToast(result.getMsg());
-            }
-
-            @Override
-            public void onError(String error) {
-
-            }
-        });
-    }
-
-    private void deleteCart(final int p,int goodsid) {
-            NetDao.deleteCart(context, goodsid, new OkHttpUtils.OnCompleteListener<MessageBean>() {
-                @Override
-                public void onSuccess(MessageBean result) {
-                    CommonUtils.showShortToast(result.getMsg());
-                    mList.get(p).setCount(0);
-                    mList.remove(p);
-                    notifyDataSetChanged();
-                    context.sendBroadcast(new Intent(I.BROADCAST_UPDATA_CART));
-
-                }
-
-                @Override
-                public void onError(String error) {
-
-                }
-            });
-        }
-
 }

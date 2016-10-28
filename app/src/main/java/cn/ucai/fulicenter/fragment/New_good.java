@@ -169,7 +169,6 @@ public class New_good extends Fragment {
 
             @Override
             public void onError(String error) {
-                SwipeRefreshLayout.setRefreshing(false);
                 jiazai.setVisibility(View.GONE);
                 CommonUtils.showShortToast(error);
                 L.e("error"+error);
