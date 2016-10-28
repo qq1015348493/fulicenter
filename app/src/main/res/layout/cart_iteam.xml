@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/cart_RelativeLayout"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/cart_LinearLayout"
     android:gravity="center_vertical"
     android:layout_width="match_parent"
     android:background="#fff"
@@ -11,60 +11,62 @@
         android:id="@+id/cart_checked"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:checked="true"/>
+        android:button="@drawable/checkbox_style"
+        android:checked="false"/>
     <ImageView
         android:id="@+id/cart_iv"
         android:padding="5dp"
-        android:layout_toRightOf="@+id/cart_checked"
         android:layout_marginLeft="20dp"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:src="@drawable/nopic"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="杏仁紧实美服油"
-        android:textSize="20dp"
-        android:layout_marginTop="20dp"
-        android:textColor="@color/orange"
-        android:id="@+id/cart_name"
-        android:layout_toRightOf="@+id/cart_iv"
-         />
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
     <LinearLayout
-        android:layout_alignParentBottom="true"
-        android:layout_toEndOf="@+id/cart_iv"
-        android:layout_toRightOf="@+id/cart_iv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-        <ImageView
-            android:layout_width="20dp"
-            android:layout_height="match_parent"
-            android:src="@mipmap/add_cart"
-            android:id="@+id/addCount"
-            />
-
+        android:layout_width="200dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:text="(2)"
-            android:id="@+id/cart_Count"
-            android:textSize="25dp"
-            android:layout_marginLeft="20dp"/>
-        <ImageView
-            android:id="@+id/delCount"
-            android:layout_marginLeft="20dp"
-            android:layout_width="20dp"
-            android:layout_height="match_parent"
-            android:src="@mipmap/del_cart"/>
+            android:text="杏仁紧实美服油"
+            android:textSize="20dp"
+            android:layout_marginTop="20dp"
+            android:textColor="@color/orange"
+            android:id="@+id/cart_name"
+            />
+        <LinearLayout
+            android:layout_alignParentBottom="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:src="@mipmap/add_cart"
+                android:id="@+id/addCount"
+                />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="(2)"
+                android:id="@+id/cart_Count"
+                android:textSize="25dp"
+                android:layout_marginLeft="20dp"/>
+            <ImageView
+                android:id="@+id/delCount"
+                android:layout_marginLeft="20dp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:src="@mipmap/del_cart"/>
+        </LinearLayout>
     </LinearLayout>
+
     <TextView
         android:id="@+id/cart_price"
         android:layout_marginRight="30dp"
+        android:layout_marginLeft="40dp"
         android:gravity="center"
         android:layout_alignParentRight="true"
         android:layout_width="wrap_content"
@@ -72,4 +74,4 @@
         android:text="444"
         android:textSize="20dp"
         android:textColor="@color/orange"/>
-</RelativeLayout>
+</LinearLayout>

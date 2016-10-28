@@ -39,7 +39,7 @@ public class Category extends Fragment {
     ArrayList<ArrayList<CategoryChildBean>> mChildList = new ArrayList<>();
     @Bind(R.id.Category_list)
     ExpandableListView CategoryList;
-    Context context;
+    MainActivity context;
     int pageid=1;
     public Category() {
         // Required empty public constructor

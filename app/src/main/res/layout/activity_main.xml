@@ -84,7 +84,8 @@
             android:drawableTop="@drawable/selector_menu_item_personal_center"
             android:gravity="center_horizontal"
             android:text="我"
-            android:textColor="@color/main_botton_text_color" />
+            android:textColor="@color/main_botton_text_color"
+            />
 
     </LinearLayout>
 

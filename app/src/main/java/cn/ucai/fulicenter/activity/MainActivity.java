@@ -7,9 +7,13 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.RadioButton;
+import android.widget.TextView;
+
+import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import cn.ucai.fulicenter.Bean.CartBean;
 import cn.ucai.fulicenter.Bean.UserAvatar;
 import cn.ucai.fulicenter.I;
 import cn.ucai.fulicenter.R;
@@ -18,9 +22,12 @@ import cn.ucai.fulicenter.fragment.Cart;
 import cn.ucai.fulicenter.fragment.Category;
 import cn.ucai.fulicenter.fragment.New_good;
 import cn.ucai.fulicenter.fragment.Personal;
+import cn.ucai.fulicenter.net.NetDao;
+import cn.ucai.fulicenter.utils.ConvertUtils;
 import cn.ucai.fulicenter.utils.FuLiCenterApplication;
 import cn.ucai.fulicenter.utils.L;
 import cn.ucai.fulicenter.utils.MFGT;
+import cn.ucai.fulicenter.utils.OkHttpUtils;
 
 public class MainActivity extends AppCompatActivity{
     private static final String TAG = MainActivity.class.getSimpleName();
@@ -35,6 +42,8 @@ public class MainActivity extends AppCompatActivity{
     RadioButton itemCart;
     @Bind(R.id.personal)
     RadioButton person;
+    @Bind(R.id.tvCartHint)
+    TextView Hint;
 
     int index;
     RadioButton[] rbs;
@@ -130,7 +139,6 @@ public class MainActivity extends AppCompatActivity{
         setRadioButtonStatus();
         currentIndex = index;
     }
-
     private void setRadioButtonStatus() {
         for (int i = 0; i < rbs.length; i++) {
             if (i == index) {
@@ -160,13 +168,26 @@ public class MainActivity extends AppCompatActivity{
                 index = currentIndex;
             }
         }
-        updateView();
+        setFragment();
         super.onResume();
+        DownLoadCart();
 }
 
-    private void updateView() {
-        setFragment();
+    private void DownLoadCart() {
+        NetDao.downloadcart(mContext, user.getMuserName(), new OkHttpUtils.OnCompleteListener<CartBean[]>() {
+            @Override
+            public void onSuccess(CartBean[] result) {
+                ArrayList<CartBean> list = ConvertUtils.array2List(result);
+                Hint.setText(list.size()+"");
+            }
+
+            @Override
+            public void onError(String error) {
+
+            }
+        });
     }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

@@ -189,12 +189,10 @@ public class NetDao {
                 .execute(listener);
     }
 
-    public static void downloadcart(MainActivity context, String muserName, int mPageId,OkHttpUtils.OnCompleteListener<CartBean[]> listener) {
+    public static void downloadcart(MainActivity context, String muserName,OkHttpUtils.OnCompleteListener<CartBean[]> listener) {
         OkHttpUtils<CartBean[]> utils = new OkHttpUtils<>(context);
         utils.setRequestUrl(I.REQUEST_FIND_CARTS)
                 .addParam(I.Cart.USER_NAME,muserName)
-                .addParam(I.PAGE_ID,mPageId+"")
-                .addParam(I.PAGE_SIZE,I.PAGE_SIZE_DEFAULT+"")
                 .targetClass(CartBean[].class)
                 .execute(listener);
     }
@@ -202,17 +200,17 @@ public class NetDao {
     public static void deleteCart(Context context, int goodsid,OkHttpUtils.OnCompleteListener<MessageBean> listener) {
         OkHttpUtils<MessageBean> utils = new OkHttpUtils<>(context);
         utils.setRequestUrl(I.REQUEST_DELETE_CART)
-                .addParam(I.Cart.GOODS_ID,goodsid+"")
+                .addParam(I.Cart.ID,goodsid+"")
                 .targetClass(MessageBean.class)
                 .execute(listener);
     }
 
-    public static void updateCart(Context context, int goodsid, int count,OkHttpUtils.OnCompleteListener<MessageBean> listener) {
+    public static void updateCart(Context context, int goodsid, int count, boolean checked, OkHttpUtils.OnCompleteListener<MessageBean> listener) {
         OkHttpUtils<MessageBean> utils = new OkHttpUtils<>(context);
         utils.setRequestUrl(I.REQUEST_UPDATE_CART)
                 .addParam(I.Cart.ID,goodsid+"")
                 .addParam(I.Cart.COUNT,count+"")
-                .addParam(I.Cart.IS_CHECKED,true+"")
+                .addParam(I.Cart.IS_CHECKED,checked+"")
                 .targetClass(MessageBean.class)
                 .execute(listener);
     }

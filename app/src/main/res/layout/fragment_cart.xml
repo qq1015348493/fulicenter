@@ -1,11 +1,40 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:background="@color/btn_white_pressed"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="cn.ucai.fulicenter.fragment.Cart">
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:layout_above="@+id/heji"
+        android:id="@+id/cart_SwipeRefreshLayout"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/cart_full"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="购物车空空如也"
+                android:textSize="30dp"
+                android:visibility="gone"
+                />
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/cart_RecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            </android.support.v7.widget.RecyclerView>
+        </LinearLayout>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
     <RelativeLayout
+        android:id="@+id/heji"
+        android:layout_alignParentBottom="true"
         android:background="#fff"
         android:layout_width="match_parent"
         android:layout_height="60dp">
@@ -26,36 +55,26 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:orientation="vertical">
+
             <TextView
                 android:gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
-                android:text="合计：1160"
+                android:text="合计：0"
                 android:textColor="@color/orange"
                 android:layout_alignParentTop="true"
                 android:id="@+id/allprice"
                 android:textSize="20dp"/>
+
             <TextView
                 android:gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
-                android:text="节省：1160"
+                android:text="节省：0"
                 android:id="@+id/save"
                 android:textSize="20dp"
                 android:textColor="@color/holo_red_light"/>
 
         </LinearLayout>
     </RelativeLayout>
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/cart_SwipeRefreshLayout"
-        android:layout_marginTop="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/cart_RecyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-        </android.support.v7.widget.RecyclerView>
-    </android.support.v4.widget.SwipeRefreshLayout>
-
-</LinearLayout>
+</RelativeLayout>
