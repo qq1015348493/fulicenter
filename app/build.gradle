@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion '23.0.3'
+    buildToolsVersion '23.0.2'
     aaptOptions {
         cruncherEnabled = false
         useNewCruncher = false
@@ -39,4 +39,6 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile files('lib/butterknife-plugin.jar')
     compile 'com.google.android.gms:play-services-appindexing:8.4.0'
+    compile project(':lib:bdwallet_pay_sdk')
+    compile project(':lib:pingpp_one')
 }

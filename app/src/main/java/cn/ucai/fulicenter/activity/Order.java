@@ -10,7 +10,17 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.pingplusplus.android.PingppLog;
+import com.pingplusplus.libone.PaymentHandler;
+import com.pingplusplus.libone.PingppOne;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -23,13 +33,14 @@ import cn.ucai.fulicenter.net.NetDao;
 import cn.ucai.fulicenter.utils.CommonUtils;
 import cn.ucai.fulicenter.utils.ConvertUtils;
 import cn.ucai.fulicenter.utils.FuLiCenterApplication;
+import cn.ucai.fulicenter.utils.L;
 import cn.ucai.fulicenter.utils.OkHttpUtils;
 
 /**
  * Created by Administrator on 2016/10/28.
  */
 
-public class Order extends AppCompatActivity {
+public class Order extends AppCompatActivity implements PaymentHandler{
     Context context;
 
     @Bind(R.id.iv_order_back)
@@ -46,17 +57,29 @@ public class Order extends AppCompatActivity {
     Button btSettlement;
     String id[] = new String[]{};
     String ids;
+    int price;
+    private static String URL = "http://218.244.151.190/demo/charge";
+
     ArrayList<CartBean> mList = new ArrayList<>();
     UserAvatar user = FuLiCenterApplication.getUser();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_order);
         ButterKnife.bind(this);
         context = this;
         initView();
         initData();
+        super.onCreate(savedInstanceState);
+        //设置需要使用的支付方式
+        PingppOne.enableChannels(new String[]{"wx", "alipay", "upacp", "bfb", "jdpay_wap"});
+
+        // 提交数据的格式，默认格式为json
+        // PingppOne.CONTENT_TYPE = "application/x-www-form-urlencoded";
+        PingppOne.CONTENT_TYPE = "application/json";
+
+        PingppLog.DEBUG = true;
     }
 
     private void initData() {
@@ -82,7 +105,7 @@ public class Order extends AppCompatActivity {
             }
         });
     }
-
+    // 计算总金额（以分为单位）
     private void SumPrice() {
         int savPrice = 0;
         if(mList!=null&&mList.size()>0){
@@ -91,6 +114,7 @@ public class Order extends AppCompatActivity {
                     savPrice+=getPrice(c.getGoods().getRankPrice())*c.getCount();
                 }
             }
+            price = savPrice;
             tvOrderCountNum.setText("￥"+Double.valueOf(savPrice));
         }
     }
@@ -107,27 +131,97 @@ public class Order extends AppCompatActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.iv_order_back:
+                finish();
                 break;
             case R.id.bt_settlement:
-                if(etName==null){
+                if(etName.getText().toString().isEmpty()){
                     etName.requestFocus();
                     CommonUtils.showShortToast("姓名不能为空");
+                    return;
                 }else {
                     String name = etName.getText().toString();
-                    if(etPhone==null){
+                    if(etPhone.getText().toString().isEmpty()){
                         etPhone.requestFocus();
                         CommonUtils.showShortToast("手机号不能为空");
+                        return;
                     }else {
                         String phone = etPhone.getText().toString();
-                        if(etAddress==null){
+                        if(etAddress.getText().toString().isEmpty()){
                             etAddress.requestFocus();
                             CommonUtils.showShortToast("地址不能为空");
+                            return;
                         }else {
                             String address = etAddress.getText().toString();
+                            L.i(name+" "+phone+" "+address);
+                            gotopay();
                         }
                     }
                 }
                 break;
+        }
+    }
+
+    private void gotopay() {
+        // 产生个订单号
+        String orderNo = new SimpleDateFormat("yyyyMMddhhmmss")
+                .format(new Date());
+
+        // 构建账单json对象
+        JSONObject bill = new JSONObject();
+
+        // 自定义的额外信息 选填
+        JSONObject extras = new JSONObject();
+        try {
+            try {
+                extras.put("extra1", "extra1");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            extras.put("extra2", "extra2");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            bill.put("order_no", orderNo);
+            bill.put("amount", price*100);
+            bill.put("extras", extras);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        //壹收款: 创建支付通道的对话框
+        PingppOne.showPaymentChannels(getSupportFragmentManager(), bill.toString(), URL, this);
+    }
+
+    @Override
+    public void handlePaymentResult(Intent data) {
+        if (data != null) {
+
+            // result：支付结果信息
+            // code：支付结果码
+            //-2:用户自定义错误
+            //-1：失败
+            // 0：取消
+            // 1：成功
+            // 2:应用内快捷支付支付结果
+            L.i("code"+data.getExtras().getInt("code"));
+            if (data.getExtras().getInt("code") != 2) {
+                PingppLog.d(data.getExtras().getString("result") + "  " + data.getExtras().getInt("code"));
+            } else {
+                String result = data.getStringExtra("result");
+                try {
+                    JSONObject resultJson = new JSONObject(result);
+                    if (resultJson.has("error")) {
+                        result = resultJson.optJSONObject("error").toString();
+                    } else if (resultJson.has("success")) {
+                        result = resultJson.optJSONObject("success").toString();
+                    }
+                    L.d("result::" + result);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 }
